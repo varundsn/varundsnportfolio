@@ -2583,6 +2583,20 @@ html.hf-pre:not(.hf-3) .h2i{opacity:0;scale:.2}
 /* dock: first/last items follow the dock's chamfered corners */
 .dock a:first-of-type{clip-path:polygon(7px 0,100% 0,100% 100%,0 100%,0 7px)}
 .dock a:last-of-type{clip-path:polygon(0 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%)}
+/* feedback board: compact */
+.fbd{padding-block:clamp(60px,6vw,96px)!important}
+.fbd .frame{max-width:1020px;margin:30px auto 0;padding:clamp(8px,1vw,12px)}
+.fbd .chalk{padding:clamp(16px,2vw,26px)}
+.chalk .ct{font-size:clamp(1.15rem,1.6vw,1.45rem)!important;margin-bottom:clamp(14px,1.6vw,22px)!important}
+.fbd .notes{gap:clamp(14px,1.6vw,22px) clamp(12px,1.6vw,20px)}
+.fbd .pin{padding:24px 16px 14px;min-height:120px;gap:10px}
+.fbd .pin .q{font-size:clamp(1.05rem,1.35vw,1.25rem)!important;line-height:1.16!important}
+.fbd .pin small{font-size:9px;padding-right:20px}
+.fbd .bhint{margin:26px auto 0;max-width:1020px;font-size:13px}
+.fbd .ledge{max-width:1000px;margin-inline:auto}
+@media(max-width:1000px){.fbd .notes{grid-template-columns:1fr 1fr}.fbd .pin{min-height:110px}}
+@media(max-width:600px){.fbd .notes{grid-template-columns:1fr}}
+@media(min-width:1001px){.fbd .notes{grid-template-columns:repeat(6,minmax(0,1fr))}.fbd .pin{grid-column:span 2}.fbd .pin:nth-child(4):nth-last-child(2){grid-column:2/4}.fbd .pin:nth-child(5):last-child{grid-column:4/6}}
 </style>
 <script>(function(){var h=document.documentElement;if(!h.classList.contains('hf-pre'))return;
 var panel=document.getElementById('hfDisc'),c=document.getElementById('h2c'),N=document.getElementById('hfN'),B=document.getElementById('hfB'),done=false,T=[];
