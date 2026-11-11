@@ -2644,6 +2644,20 @@ html.hf-pre:not(.hf-3) .h2i{opacity:0;scale:.2}
 .tile.big:hover .cvr.p .stk{transform:translate(-50%,-50%) rotate(-4deg) scale(1.2)}
 .tile.big:hover .cvr .col,.tile.big:hover .cvr .row{animation-duration:20s}
 @media(prefers-reduced-motion:reduce){.cvr *{animation:none!important}.cvr::after{display:none}}
+
+/* cloudsecure v2: one window, one incident path (detect -> investigate -> resolve) */
+.cvr.c .win{animation:none;left:50%;top:50%;right:auto;bottom:auto;width:70%;transform:translate(-50%,-50%) rotate(-2deg);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.cvr.c .win .vp{aspect-ratio:1.9}
+.cvr.c .win img{width:100%;height:auto;animation:none;opacity:0;transform:scale(1.04);animation:cvSlide 15s infinite}
+.cvr.c .win img:nth-child(2){animation-delay:5s}.cvr.c .win img:nth-child(3){animation-delay:10s}
+@keyframes cvSlide{0%{opacity:0;transform:scale(1.04) translateY(0)}6%{opacity:1}30%{opacity:1;transform:scale(1.0) translateY(-4%)}36%,100%{opacity:0;transform:scale(1.0) translateY(-4%)}}
+.cvr.c .stp{position:absolute;z-index:4;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:8px}
+.cvr.c .stp b{font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);padding:8px 12px;border:1px solid rgba(255,255,255,.2);background:rgba(8,12,24,.6);backdrop-filter:blur(6px);animation:cvStep 15s infinite}
+.cvr.c .stp b:nth-child(2){animation-delay:5s}.cvr.c .stp b:nth-child(3){animation-delay:10s}
+@keyframes cvStep{0%{color:#08090A;background:var(--neon);border-color:var(--neon)}33%{color:#08090A;background:var(--neon);border-color:var(--neon)}34.5%,100%{color:rgba(255,255,255,.55);background:rgba(8,12,24,.6);border-color:rgba(255,255,255,.2)}}
+.cvr.c::after{display:none}
+.tile.big:hover .cvr.c .win{transform:translate(-50%,-50%) rotate(0) scale(1.04)}
+@media(max-width:600px){.cvr.c .win{width:84%}.cvr.c .stp b{padding:6px 8px;font-size:9px}}
 </style>
 <script>(function(){var h=document.documentElement;if(!h.classList.contains('hf-pre'))return;
 var panel=document.getElementById('hfDisc'),c=document.getElementById('h2c'),N=document.getElementById('hfN'),B=document.getElementById('hfB'),done=false,T=[];
@@ -2672,8 +2686,8 @@ var M=['cv_m0','cv_m3','cv_m7','cv_m10','cv_m12','cv_m4','cv_m8','cv_m13','cv_m2
 var mom='<div class="grid"></div><div class="stk">'+col([M[0],M[1],M[2],M[3]],-6)+col([M[4],M[5],M[6],M[7]],-26)+col([M[8],M[9],M[10],M[11]],-12)+col([M[12],M[13],M[14],M[15]],-34)+col([M[3],M[0],M[6],M[9]],-18)+col([M[5],M[10],M[1],M[14]],-8)+'</div><span class="lv"><i></i>Momentum · app screens</span><span class="fd"></span>';
 var P=[0,1,2,3,4,5,6,7,8,9].map(function(n){return 'cv_p'+n});var pr=P.map(I).join('');
 var pp='<div class="grid"></div><div class="flow"></div><div class="stk"><div class="row">'+pr+pr+'</div></div><span class="lv"><i></i>Payment failure · the flow</span><span class="fd"></span>';
-function win(c,n){return '<div class="win '+c+'"><div class="vp"><img src="img/'+n+'.webp" alt="" loading="lazy" decoding="async" width="1100" height="715"></div></div>'}
-var cs='<div class="grid"></div>'+win('w1','cv_c0')+win('w2','cv_c1')+win('w3','cv_c3')+'<span class="lv"><i></i>CloudSecure · the dashboard</span><span class="fd"></span>';
+function im2(n){return '<img src="img/'+n+'.webp" alt="" decoding="async" width="1100" height="715">'}
+var cs='<div class="grid"></div><div class="win"><div class="vp">'+im2('cv_c0')+im2('cv_c3')+im2('cv_c5')+'</div></div><div class="stp"><b>Detect</b><b>Investigate</b><b>Resolve</b></div><span class="lv"><i></i>CloudSecure · incident path</span><span class="fd"></span>';
 var set={momentum:['m',mom],phonepe:['p',pp],cloudsecure:['c',cs]};
 document.querySelectorAll('#uxs .tile.big').forEach(function(t){var h=t.getAttribute('href')||'';var k=Object.keys(set).filter(function(x){return h.indexOf(x)===0})[0];if(!k)return;
  var d=document.createElement('div');d.className='cvr '+set[k][0];d.setAttribute('aria-hidden','true');d.innerHTML=set[k][1];var im=t.querySelector('img');if(im)im.remove();t.insertBefore(d,t.firstChild)})})();</script>
