@@ -2597,6 +2597,53 @@ html.hf-pre:not(.hf-3) .h2i{opacity:0;scale:.2}
 @media(max-width:1000px){.fbd .notes{grid-template-columns:1fr 1fr}.fbd .pin{min-height:110px}}
 @media(max-width:600px){.fbd .notes{grid-template-columns:1fr}}
 @media(min-width:1001px){.fbd .notes{grid-template-columns:repeat(6,minmax(0,1fr))}.fbd .pin{grid-column:span 2}.fbd .pin:nth-child(4):nth-last-child(2){grid-column:2/4}.fbd .pin:nth-child(5):last-child{grid-column:4/6}}
+/* ============ LIVE CASE-STUDY COVERS ============ */
+.tile.big .cvr{position:absolute;inset:0;overflow:hidden;background:var(--bg0);isolation:isolate}
+.cvr.m{--bg0:#08090B}.cvr.p{--bg0:#2A1060}.cvr.c{--bg0:#0A1226}
+.cvr::before{content:"";position:absolute;inset:0;z-index:0;background:var(--gl)}
+.cvr.m{--gl:radial-gradient(60% 80% at 20% 90%,rgba(200,241,53,.28),transparent 60%),radial-gradient(50% 70% at 90% 10%,rgba(84,110,255,.25),transparent 60%)}
+.cvr.p{--gl:radial-gradient(70% 90% at 15% 20%,rgba(150,90,255,.55),transparent 65%),radial-gradient(60% 80% at 95% 100%,rgba(255,176,90,.25),transparent 60%)}
+.cvr.c{--gl:radial-gradient(70% 90% at 85% 10%,rgba(60,120,255,.4),transparent 62%),radial-gradient(50% 70% at 0% 100%,rgba(90,220,200,.18),transparent 60%)}
+.cvr .grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(80% 80% at 50% 50%,#000,transparent)}
+.cvr .stk{position:absolute;z-index:1;left:50%;top:50%;width:150%;height:max-content;display:flex;align-items:flex-start;gap:2.4%;justify-content:center;transform:translate(-50%,-50%) rotate(-14deg) scale(.66);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.cvr .col{flex:0 0 17%;display:flex;flex-direction:column;gap:3%;animation:cvUp 32s linear infinite;will-change:transform}
+.cvr .col:nth-child(even){animation-direction:reverse;animation-duration:38s}
+.cvr .col:nth-child(3n){animation-duration:44s}
+.cvr .col>div{display:flex;flex-direction:column;gap:6%}
+.cvr .col img{position:static!important;width:100%!important;height:auto!important;display:block;border-radius:12%/5.5%;box-shadow:0 12px 30px -10px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.1)}
+@keyframes cvUp{to{transform:translateY(-50%)}}
+.cvr.m .col{margin-top:calc(var(--o,0)*1%)}
+/* phonepe: a payment flow gliding sideways */
+.cvr.p .stk{width:240%;height:max-content;align-items:center;aspect-ratio:auto;flex-direction:column;gap:0;transform:translate(-50%,-50%) rotate(-7deg) scale(1.15);justify-content:center}
+.cvr.p .row{display:flex;gap:2.2%;width:max-content;animation:cvLeft 46s linear infinite;align-items:center}
+.cvr.p .row img{position:static!important;flex:none;width:clamp(110px,9.5vw,150px)!important;height:auto!important;border-radius:14px;box-shadow:0 16px 34px -10px rgba(10,0,40,.7),0 0 0 1px rgba(255,255,255,.18)}
+.cvr.p .row img:nth-child(odd){transform:translateY(-10%)}.cvr.p .row img:nth-child(even){transform:translateY(10%)}
+@keyframes cvLeft{to{transform:translateX(-50%)}}
+.cvr.p .flow{position:absolute;z-index:0;left:-10%;right:-10%;top:50%;height:0;border-top:2px dashed rgba(255,255,255,.35);transform:rotate(-7deg)}
+.cvr.p .flow::after{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;border-radius:50%;background:#C8F135;box-shadow:0 0 16px 4px rgba(200,241,53,.7);animation:cvDot 4.5s linear infinite}
+@keyframes cvDot{to{left:100%}}
+/* cloudsecure: dashboard windows */
+.cvr.c .win{position:absolute;z-index:1;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 24px 50px -14px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.18);animation:cvFloat 9s ease-in-out infinite alternate}
+.cvr.c .win::before{content:"";display:block;height:16px;background:#E9ECF3 radial-gradient(circle,#ff6a5f 3px,transparent 3.5px) 8px 50%/10px 10px no-repeat}
+.cvr.c .win .vp{position:relative;overflow:hidden;aspect-ratio:1.54}
+.cvr.c .win img{position:absolute;left:0;top:0;width:150%;display:block;animation:cvPan 16s ease-in-out infinite alternate}
+.cvr.c .w1{left:5%;top:14%;width:56%;--r:-3deg;animation-delay:-2s}
+.cvr.c .w2{right:3%;top:-6%;width:44%;--r:3deg;animation-delay:-5s;animation-duration:11s}
+.cvr.c .w3{right:12%;bottom:-14%;width:40%;--r:-2deg;animation-delay:-7s;animation-duration:10s}
+.cvr.c .w2 img{animation-delay:-4s}.cvr.c .w3 img{animation-delay:-8s}
+@keyframes cvFloat{from{transform:translateY(-8px) rotate(var(--r))}to{transform:translateY(10px) rotate(calc(var(--r)*-.5))}}
+@keyframes cvPan{from{transform:translate(0,0)}to{transform:translate(-33%,-30%)}}
+.cvr.c::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.16) 50%,transparent 60%);transform:translateX(-120%);animation:cvSweep 6s ease-in-out infinite;pointer-events:none}
+@keyframes cvSweep{55%,100%{transform:translateX(120%)}}
+/* chrome on top of every cover */
+.cvr .lv{position:absolute;z-index:4;left:16px;top:14px;display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 10px;background:rgba(8,9,10,.62);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.cvr .lv i{width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 0 0 rgba(200,241,53,.7);animation:cvPulse 1.8s infinite}
+@keyframes cvPulse{70%{box-shadow:0 0 0 8px rgba(200,241,53,0)}100%{box-shadow:0 0 0 0 rgba(200,241,53,0)}}
+.cvr .fd{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.28),transparent 22%,transparent 70%,rgba(0,0,0,.5))}
+.tile.big:hover .cvr .stk{transform:translate(-50%,-50%) rotate(-9deg) scale(.72)}
+.tile.big:hover .cvr.p .stk{transform:translate(-50%,-50%) rotate(-4deg) scale(1.2)}
+.tile.big:hover .cvr .col,.tile.big:hover .cvr .row{animation-duration:20s}
+@media(prefers-reduced-motion:reduce){.cvr *{animation:none!important}.cvr::after{display:none}}
 </style>
 <script>(function(){var h=document.documentElement;if(!h.classList.contains('hf-pre'))return;
 var panel=document.getElementById('hfDisc'),c=document.getElementById('h2c'),N=document.getElementById('hfN'),B=document.getElementById('hfB'),done=false,T=[];
@@ -2617,3 +2664,16 @@ function unlockRib(){var f=function(){h.classList.add('hf-rib');['wheel','touchm
 var s=document.getElementById('hfSkip');if(s)s.addEventListener('click',finish);
 addEventListener('keydown',function(e){if(e.key==='Escape')finish()});
 })();</script>
+<script>(function(){
+var q=function(s,r){return(r||document).querySelector(s)};
+function I(n){return '<img src="img/'+n+'.webp" alt="" decoding="async" width="300" height="650">'}
+function col(a,o){var h=a.map(I).join('');return '<div class="col" style="--o:'+o+'"><div>'+h+'</div><div aria-hidden="true">'+h+'</div></div>'}
+var M=['cv_m0','cv_m3','cv_m7','cv_m10','cv_m12','cv_m4','cv_m8','cv_m13','cv_m2','cv_m11','cv_m14','cv_m5','cv_m9','cv_m15','cv_m1','cv_m6'];
+var mom='<div class="grid"></div><div class="stk">'+col([M[0],M[1],M[2],M[3]],-6)+col([M[4],M[5],M[6],M[7]],-26)+col([M[8],M[9],M[10],M[11]],-12)+col([M[12],M[13],M[14],M[15]],-34)+col([M[3],M[0],M[6],M[9]],-18)+col([M[5],M[10],M[1],M[14]],-8)+'</div><span class="lv"><i></i>Momentum · app screens</span><span class="fd"></span>';
+var P=[0,1,2,3,4,5,6,7,8,9].map(function(n){return 'cv_p'+n});var pr=P.map(I).join('');
+var pp='<div class="grid"></div><div class="flow"></div><div class="stk"><div class="row">'+pr+pr+'</div></div><span class="lv"><i></i>Payment failure · the flow</span><span class="fd"></span>';
+function win(c,n){return '<div class="win '+c+'"><div class="vp"><img src="img/'+n+'.webp" alt="" loading="lazy" decoding="async" width="1100" height="715"></div></div>'}
+var cs='<div class="grid"></div>'+win('w1','cv_c0')+win('w2','cv_c1')+win('w3','cv_c3')+'<span class="lv"><i></i>CloudSecure · the dashboard</span><span class="fd"></span>';
+var set={momentum:['m',mom],phonepe:['p',pp],cloudsecure:['c',cs]};
+document.querySelectorAll('#uxs .tile.big').forEach(function(t){var h=t.getAttribute('href')||'';var k=Object.keys(set).filter(function(x){return h.indexOf(x)===0})[0];if(!k)return;
+ var d=document.createElement('div');d.className='cvr '+set[k][0];d.setAttribute('aria-hidden','true');d.innerHTML=set[k][1];var im=t.querySelector('img');if(im)im.remove();t.insertBefore(d,t.firstChild)})})();</script>
