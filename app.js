@@ -15,8 +15,6 @@ const SITE={
   primary:'View case studies',secondary:'Download resume'},
  /* Proof strip. Items whose n is TODO or empty are hidden. */
  proof:[
-  {n:'1,500+',l:'social and campaign assets designed'},
-  {n:'10+',l:'packaging projects'},
   {n:TODO,l:'brand identities'} /* TODO: confirm the number (resume versions disagree). Hidden until filled, e.g. {n:'12',l:'brand identities'} */
  ],
  footer:'© 2026 Varun Dusane · Product Designer · India, available worldwide',
@@ -461,7 +459,7 @@ function buildWorld(){
     const ring=[P(x-pd,y+dd+pd+.5,.03),P(x+w+pd,y+dd+pd+.5,.03),P(x+w+pd,y-pd,.03)];
     g+=`<g class="bld" data-i="${i}" tabindex="0" role="button" aria-label="${esc(STOPS[i].n)}, ${esc(STOPS[i].dates)}"><polygon class="hit" points="${PS(hit)}"/><polyline class="ring" points="${PS(ring)}"/></g>`});
   /* pins */
-  BLD.forEach((b,i)=>{const p=P(b.c[0],b.c[1],b.pin);g+=`<g class="pinm" data-i="${i}" transform="translate(${f1(p[0])} ${f1(p[1])})"><g class="pb"><path d="M0 5L-6 -6H6Z" fill="#181B19"/><circle cx="0" cy="-17" r="14"/><text x="0" y="-11.5">${i+1}</text><g class="plab" aria-hidden="true" text-anchor="middle" style="paint-order:stroke;stroke:#181B19;stroke-width:3.4px;stroke-linejoin:round;fill:#fff"><text x="0" y="-52" font-size="13.5" font-weight="700">${esc(STOPS[i].n)}</text><text x="0" y="-36.5" font-size="11.5" font-weight="500">${esc(STOPS[i].dates)}</text></g></g></g>`});
+  BLD.forEach((b,i)=>{const p=P(b.c[0],b.c[1],b.pin);g+=`<g class="pinm" data-i="${i}" transform="translate(${f1(p[0])} ${f1(p[1])})"><g class="pb"><path d="M0 5L-6 -6H6Z" fill="#181B19"/><circle cx="0" cy="-17" r="14"/><text x="0" y="-11.5">${i+1}</text><g class="plab" aria-hidden="true" text-anchor="middle" style="paint-order:stroke;stroke:#181B19;stroke-width:3.4px;stroke-linejoin:round;fill:#fff"><rect class="lb" x="${-Math.round((Math.max(STOPS[i].n.length*7.6,STOPS[i].dates.length*6.4)+22)/2)}" y="-67" width="${Math.round(Math.max(STOPS[i].n.length*7.6,STOPS[i].dates.length*6.4)+22)}" height="39" rx="4"/><text x="0" y="-52" font-size="13.5" font-weight="700">${esc(STOPS[i].n)}</text><text x="0" y="-36.5" font-size="11.5" font-weight="500">${esc(STOPS[i].dates)}</text></g></g></g>`});
   /* walker */
   g+=`<g id="jtrav"><ellipse class="pulse" rx="17" ry="7.5"/><g id="wk"><g id="wkf"><ellipse cx="0" cy="0" rx="12" ry="4.2" fill="rgba(24,27,25,.24)"/>
    <g id="wA2"><rect x="-2.9" y="-33" width="5.8" height="15" rx="2.8" fill="#1C1F20" stroke="#0F1211" stroke-width="1" stroke-linejoin="round"/><rect x="-3" y="-20" width="6" height="3.2" rx="1.4" fill="#2E3233" stroke="#0F1211" stroke-width="1" stroke-linejoin="round"/><circle cx="0" cy="-15.6" r="2.7" fill="#C98F69" stroke="#0F1211" stroke-width="1" stroke-linejoin="round"/></g>

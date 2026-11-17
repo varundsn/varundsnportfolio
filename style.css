@@ -1584,3 +1584,7 @@ html.hf-pre:not(.hf-3) :is(.h2sub,.h2role){opacity:0}
  .hf-stage{margin-top:6cqi}.h2v{color:var(--ink)}:root[data-theme="dark"] .h2v{color:var(--neon)!important}}
 
 @media(min-width:1001px){.mq{bottom:62px!important}}
+
+.jmap .pinm .plab .lb{fill:#FBF8F0;stroke:#14110F;stroke-width:1.5px;paint-order:normal}
+:root[data-theme="dark"] .jmap .pinm .plab .lb{fill:#12151B;stroke:#F6F3EA}
+@media(min-width:1001px){.mq{bottom:46px!important}}
