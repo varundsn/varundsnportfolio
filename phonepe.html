@@ -2,6 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>When a payment fails, the experience shouldn’t</title>
+<meta name="description" content="UX case study: an independent concept for PhonePe that tells people what is happening, whether to wait, and when money comes back when a UPI payment is pending or fails.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap">
 <style>
 :root{--ink:#111;--mut:#6b6b6b;--line:#e8e8e8;--ac:#6F2DBD;--y:#FFE27A;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
@@ -18,31 +19,17 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sc{padding:15vh 6vw}.col{max-width:1120px;margin:auto}
 mark{background:linear-gradient(transparent 58%,var(--y) 58%) no-repeat;background-size:0 100%;color:inherit;transition:background-size .9s .25s}mark.in{background-size:100% 100%}
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s}.rv.in{opacity:1;transform:none}
-/* hero: scroll-driven payment */
-.hero{position:relative;height:300svh;padding:0;display:block;text-align:left;--bgs:#fff;background:var(--bgs);transition:background .6s}
-.hero[data-s="1"]{--bgs:#FFFBF0}.hero[data-s="2"]{--bgs:#FFF6F7}.hero[data-s="3"]{--bgs:#fff}
-.stg{position:sticky;top:0;height:100svh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;gap:4vw;padding:0 6vw;max-width:1280px;margin:auto}
-.hl2 h1{max-width:10em;margin:0}.eb{margin:0 0 22px;max-width:34em}
-.sub{font-size:clamp(15px,1.35vw,19px);line-height:1.6;color:var(--mut);max-width:30em;margin:22px 0 0}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:640px;margin:34px 0 0;opacity:0;transform:translateY(12px);transition:.6s}.hero.end .stats{opacity:1;transform:none}
-.stats b{display:block;font:500 13px 'DM Mono',ui-monospace,monospace;color:var(--ink);margin-bottom:2px}
-.pw{position:relative;display:grid;place-items:center;height:100%}
-.phn{position:relative;height:min(74svh,640px);aspect-ratio:9/18.4;border-radius:clamp(30px,5.2svh,46px);background:#111;padding:clamp(7px,1.1svh,10px);box-shadow:0 30px 60px -20px #0004;container-type:size;transition:transform .6s;transform:rotate(calc(var(--p,0)*-3deg))}
-.hero[data-s="3"] .phn{transform:rotate(0)}
-.scr{position:relative;width:100%;height:100%;border-radius:clamp(24px,4.3svh,37px);background:#fff;overflow:hidden;font-family:'DM Mono',ui-monospace,monospace}
-.top{display:flex;align-items:center;gap:2.5cqw;padding:7cqw 5cqw 4cqw;font-size:4.4cqw;border-bottom:1px solid var(--line)}.top .amt{margin-left:auto;color:var(--ink)}.lg{width:7cqw;height:7cqw;border-radius:2cqw;background:#5F259F;color:#fff;display:grid;place-items:center;font-size:4.2cqw}
-.ly{position:absolute;left:0;right:0;top:16%;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:26cqw 8cqw 0;text-align:center;opacity:0;transform:translateY(14px);transition:.45s}.ly.on{opacity:1;transform:none}
-.ly h4{margin:5cqw 0 1.5cqw;font:400 6cqw/1.2 'DM Mono',ui-monospace,monospace;letter-spacing:-.03em}.ly p{margin:0;font-size:4cqw;line-height:1.5;color:var(--mut)}
-.rg{width:34cqw;height:34cqw;transform:rotate(-90deg)}.rg circle{fill:none;stroke-width:7;stroke-linecap:round}.rg .tr{stroke:#EEE}.rg .fg{stroke:var(--ac);stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset .25s}
-.ico{width:26cqw;height:26cqw;border-radius:50%;display:grid;place-items:center}.ico svg{width:46%;height:46%;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.ico.w{background:#D99A24}.ico.r{background:#B3243A}
-.btns{display:flex;gap:2.5cqw;margin-top:7cqw;font-size:3.8cqw}.btns span{padding:2.6cqw 4cqw;border-radius:99px;border:1px solid #ccc}.btns .b1{background:var(--ac);border-color:var(--ac);color:#fff;animation:pu 1.6s ease-in-out infinite}
-@keyframes pu{50%{box-shadow:0 0 0 2.4cqw #6F2DBD22}}
-.q{width:26cqw;height:26cqw;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-size:15cqw}
-.chp{position:absolute;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 13px 9px 9px;box-shadow:0 12px 26px -10px #0003;font:400 11.5px/1.35 'DM Mono',ui-monospace,monospace;color:var(--mut);opacity:0;transform:translateY(14px) scale(.92);transition:.5s cubic-bezier(.3,1.4,.5,1);white-space:nowrap;z-index:2}
-.chp.on{opacity:1;transform:none}.chp b{display:block;color:var(--ink);font-weight:500}
-.ci{width:34px;height:34px;border-radius:10px;background:var(--c);display:grid;place-items:center;flex:none}.ci svg{width:19px;height:19px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.c1{left:-10%;top:12%}.c2{right:-12%;top:28%}.c3{right:-4%;top:52%}.c4{left:0;top:80%}
-.hnote{position:absolute;left:6vw;right:6vw;bottom:20px;display:flex;justify-content:space-between;gap:20px;z-index:2}
+/* hero */
+.hero{min-height:100svh;position:relative;display:grid;place-items:center;text-align:center;padding:0 6vw;overflow:hidden}
+.hero h1{max-width:11em;margin:0 auto}.hero .in2{position:relative;z-index:2;pointer-events:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:760px;margin:44px auto 0;text-align:left}.stats b{display:block;font:500 13px 'DM Mono',ui-monospace,monospace;color:var(--ink);margin-bottom:2px}
+.hero .foot{position:absolute;left:6vw;right:6vw;bottom:24px;display:flex;justify-content:space-between;gap:20px;z-index:2}
+#hl{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}#hl path{fill:none;stroke:#b9b9b9;stroke-width:1}
+.tile{position:absolute;width:76px;margin:-30px 0 0 -38px;text-align:center;cursor:grab;touch-action:none;user-select:none;z-index:3}.tile:active{cursor:grabbing}
+.ic{position:relative;width:52px;height:52px;margin:auto;border-radius:14px;display:grid;place-items:center;box-shadow:0 6px 18px #0002;animation:fl 5s ease-in-out infinite}
+.ic svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bd{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;border-radius:10px;background:#E5384C;color:#fff;font:500 11px/20px 'DM Mono',ui-monospace,monospace;padding:0 5px}
+.tile .k{display:block;font-size:10.5px;margin-top:6px;line-height:1.3;color:#444}
 @keyframes fl{50%{transform:translateY(-7px)}}
 /* people */
 .ppl{display:block;width:100%;overflow:visible}
@@ -89,7 +76,7 @@ mark{background:linear-gradient(transparent 58%,var(--y) 58%) no-repeat;backgrou
 .trio{display:flex;gap:4vw;justify-content:center;margin-top:60px}.trio .who{width:min(150px,22vw)}
 .cl{display:grid;grid-template-columns:1fr 1fr;gap:5vw;margin-top:40px}.cl ol{padding-left:20px;margin:0}.cl li{margin:0 0 .8em}
 @media(max-width:820px){.sg,.vn,.cl,.ig,.qa{grid-template-columns:1fr}.stats{grid-template-columns:1fr;gap:14px}.four{grid-template-columns:1fr 1fr}
-.stick{top:0;height:46vh;background:var(--bg,#fff);z-index:3;transition:background .9s}.ph{width:min(150px,38vw)}.who{width:min(110px,28vw)}.st{min-height:62vh}.row,.ax{grid-template-columns:110px 1fr}.ev article:nth-child(even){margin-left:0}.sc{padding:11vh 6vw}}
+.stick{top:0;height:46vh;background:var(--bg,#fff);z-index:3;transition:background .9s}.ph{width:min(150px,38vw)}.who{width:min(110px,28vw)}.st{min-height:62vh}.row,.ax{grid-template-columns:110px 1fr}.ev article:nth-child(even){margin-left:0}.hero .foot{flex-direction:column;gap:4px}.sc{padding:11vh 6vw}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}mark{background-size:100% 100%}.st{opacity:1}.bar{transform:none}}
 
 .scn{position:relative;width:min(540px,100%,76vh);aspect-ratio:1/1;margin:auto}.scn.wide{width:min(760px,100%);aspect-ratio:2/1;margin-top:40px}.scn.wide .bk{inset:-30% 15%}
@@ -105,35 +92,40 @@ mark{background:linear-gradient(transparent 58%,var(--y) 58%) no-repeat;backgrou
 .ex article{display:grid;grid-template-columns:minmax(220px,330px) 1fr;gap:6vw;align-items:center;margin:8vh 0}.ex article:nth-child(even){grid-template-columns:1fr minmax(220px,330px)}.ex article:nth-child(even) img{order:2}
 .ex img{width:100%;border-radius:18px;box-shadow:0 24px 50px #1a0b3a2e;display:block}.ex p{font:500 clamp(19px,2.2vw,26px)/1.4 Inter,system-ui,sans-serif;letter-spacing:-.02em;margin:.3em 0}
 @media(max-width:820px){.scn{width:min(100%,42vh)}.s4 .ph{width:46%}.ex article,.ex article:nth-child(even){grid-template-columns:1fr}.ex article:nth-child(even) img{order:0}.ex img{max-width:300px}.scn.wide{width:100%}}
-@media(max-width:860px){.stg{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);align-items:start;gap:0;padding-top:76px}.hl2 h1{font-size:clamp(26px,8vw,38px)}.eb{display:none}.sub{font-size:13.5px;margin-top:12px;line-height:1.5}.stats{display:none}.pw{height:100%;min-height:0}.phn{height:min(46svh,420px)}.c1{left:0;right:auto;top:6%}.c2{left:auto;right:0;top:26%}.c3{left:0;right:auto;top:52%}.c4{left:auto;right:0;top:72%}.chp{font-size:10.5px;padding:6px 10px 6px 6px}.ci{width:26px;height:26px}.hnote{display:none}}
-</style></head><body><script>try{history.scrollRestoration="manual"}catch(e){}if(location.hash)history.replaceState(null,"",location.pathname+location.search);function __top(){scrollTo(0,0)}__top();addEventListener("DOMContentLoaded",__top);addEventListener("load",function(){__top();setTimeout(__top,60);setTimeout(__top,300)});addEventListener("pageshow",__top)</script><a href="./" onclick="if(history.length>1){history.back();return false}" style="position:fixed;z-index:9999;left:14px;bottom:14px;background:#111;color:#fff;border-radius:999px;padding:9px 16px;font:600 13px Inter,system-ui,sans-serif;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.25)">← Portfolio</a>
 
-<header class="hero" id="hero" data-m="">
-<div class="stg">
-<div class="hl2">
-<p class="k eb">A UX case study · Independent concept for PhonePe · Figma · 1 week · 2026</p>
-<h1>Your payment went through. Or did it?</h1>
-<p class="sub">When a UPI payment gets stuck, the app shows a status and stops there. The bank SMS says one thing, the app another, the help page a third. She is left to guess whether to wait, retry or call someone.</p>
-<div class="stats"><p class="k"><b>5 min to 2 days</b>How long PhonePe’s help page says a pending wallet payment can sit.</p><p class="k"><b>T+1 or T+5</b>Auto-refund windows PhonePe Business states for person-to-person and merchant UPI payments.</p><p class="k"><b>3 to 5 days</b>The stated refund window for a failed UPI bill payment.</p></div>
-</div>
-<div class="pw" aria-hidden="true">
-<div class="phn">
-<div class="scr">
-<div class="top"><span class="lg">P</span><span>Paying Café</span><span class="amt">₹1,250</span></div>
-<div class="ly l0"><svg class="rg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" class="tr"/><circle id="rgc" cx="50" cy="50" r="40" class="fg" pathLength="100"/></svg><h4>Processing payment</h4><p>Hang on a moment.</p></div>
-<div class="ly l1"><div class="ico w"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="9"/><path d="M14 8v6l4 3"/></svg></div><h4>Payment pending</h4><p>Waiting for your bank to confirm.</p></div>
-<div class="ly l2"><div class="ico r"><svg viewBox="0 0 28 28"><path d="M8 8l12 12M20 8L8 20"/></svg></div><h4>Payment failed</h4><p>If money left your account, it should come back.</p><div class="btns"><span class="b1">Retry</span><span class="b2">Contact support</span></div></div>
-<div class="ly l3"><div class="q">?</div><h4>So, did it go through?</h4><p>Four places. Four answers.</p></div>
-</div>
-</div>
-<div class="chp c1" style="--c:#2B6CB0"><span class="ci"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 22h18M7 22V12M12 22V12M17 22V12M22 22V12M4 11l10-6 10 6"/></svg></span><span><b>Bank SMS</b>Debited ₹1,250</span></div>
-<div class="chp c2" style="--c:#D99A24"><span class="ci"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 12l2-6h14l2 6M6 12v11h16V12M12 23v-6h4v6"/></svg></span><span><b>Café</b>Not received yet</span></div>
-<div class="chp c3" style="--c:#16865C"><span class="ci"><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="9"/><path d="M14 8v6l4 3"/></svg></span><span><b>History</b>Pending</span></div>
-<div class="chp c4" style="--c:#6F2DBD"><span class="ci"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 7h18v12H13l-5 4v-4H5z"/></svg></span><span><b>Support</b>Wait 5 min to 2 days</span></div>
-</div>
-<div class="hnote k"><span id="hstep">Scroll to watch it happen</span><span>Illustration of the problem, not a real transaction</span></div>
-</div>
-</header>
+.cv{padding:7vh 6vw 12vh;position:relative}
+.cvg{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:4vw;align-items:center;min-height:80svh}
+.cvl{animation:cvin 1s ease-out both}@keyframes cvin{from{opacity:0;transform:translateY(16px)}}
+.cv h1{font-size:clamp(34px,5.4vw,76px);text-align:left;max-width:9em;margin:12px 0 18px}.cvl .sub2{margin:0;text-align:left;max-width:30em;color:#555;font-size:clamp(15px,1.4vw,19px);line-height:1.6}
+.meta{display:grid;grid-template-columns:repeat(3,auto);gap:14px 30px;margin:32px 0 0;justify-content:start}.meta dt{font:500 11px 'DM Mono',ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}.meta dd{margin:0;font-weight:500;font-size:15px}
+.grp{position:relative;width:min(500px,100%);aspect-ratio:1/1;margin:auto}.grp .bk{position:absolute;inset:-4%;z-index:0}.grp .bk svg{width:100%;height:100%;display:block}
+.ga{position:absolute;width:48%;cursor:pointer;z-index:2}.ga:focus-visible{outline-offset:4px}.a1{left:-4%;bottom:4%}.a2{left:26%;top:2%;z-index:1}.a3{right:-4%;bottom:4%}
+.gq{position:absolute;z-index:4;background:#fff;border:1px solid #111;border-radius:14px;padding:8px 13px;font:400 13px/1.35 'DM Mono',ui-monospace,monospace;max-width:170px}
+.q1{left:-6%;top:34%;border-radius:14px 14px 14px 2px}.q2{right:-2%;top:6%;border-radius:14px 14px 2px 14px}.q3{right:-6%;top:50%;border-radius:14px 14px 2px 14px}
+.glance{max-width:1180px;margin:6vh auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;border-top:1px solid var(--ink);padding-top:22px}.glance b{display:block;font:400 15px 'DM Mono',ui-monospace,monospace;margin-bottom:6px;color:var(--ac)}.glance p{font-size:15px;line-height:1.55;margin:0;color:#333}
+.cv-hint{position:absolute;left:0;right:0;bottom:3vh;max-width:none;text-align:center}
+@media(max-width:980px){.cvg{grid-template-columns:1fr;min-height:0}.glance{grid-template-columns:1fr 1fr}.grp{width:min(400px,90%);margin-top:30px}.cv-hint{display:none}.cv{padding-bottom:8vh}}
+@media(max-width:560px){.glance{grid-template-columns:1fr}.meta{grid-template-columns:repeat(2,auto)}.gq{font-size:11.5px;max-width:130px}.q1{left:-2%}.q3{right:-2%}.q2{right:0}}
+
+.mx{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px;line-height:1.5}.mx th,.mx td{text-align:left;padding:11px 16px 11px 0;border-top:1px solid var(--line);vertical-align:top}.mx th{font:400 12px 'DM Mono',ui-monospace,monospace;color:var(--mut);letter-spacing:.02em;border-top:0}.mx td b{font-weight:500}
+.tw{overflow-x:auto;margin-top:8px}.tw .mx{min-width:620px}
+</style></head><body>
+
+<header class="cv" id="cover"><div class="cvg">
+<div class="cvl"><p class="k">UX case study · PhonePe payment failure and recovery</p>
+<h1>Your payment went through. <mark>Or did it?</mark></h1>
+<p class="sub2">When a UPI payment fails or stalls, the app gives you a status: failed, pending, declined. It doesn’t tell you what actually happened to your money, whether it’s safe to try again, or when it comes back.</p>
+<dl class="meta"><div><dt>Role</dt><dd>UI/UX Designer</dd></div><div><dt>Tool</dt><dd>Figma</dd></div><div><dt>Timeline</dt><dd>1 week</dd></div><div><dt>Year</dt><dd>2026</dd></div><div><dt>Scope</dt><dd>Single recovery flow</dd></div><div><dt>Type</dt><dd>Independent concept</dd></div></dl></div>
+<div class="cvr"><div class="grp"><div class="bk" id="bkc"></div>
+<div class="gq q1">Was my money deducted?</div><div class="gq q2">Did the café get it?</div><div class="gq q3">Should I pay again?</div>
+<div class="ga a2" tabindex="0" role="button" aria-label="Change expression"><div class="pf" id="ca2"></div></div>
+<div class="ga a1" tabindex="0" role="button" aria-label="Change expression"><div class="pf" id="ca1"></div></div>
+<div class="ga a3" tabindex="0" role="button" aria-label="Change expression"><div class="pf" id="ca3"></div></div></div>
+<p class="k" style="text-align:center;margin:10px auto 0">Illustrated, not real users. Click a face.</p></div></div>
+<div class="glance"><div><b>You see</b><p>One word on a red screen, and a Retry button.</p></div><div><b>Actually happening</b><p>Your bank, the merchant and the app each report a different part of the story.</p></div><div><b>What I designed</b><p>A recovery flow for the moments after it goes wrong: say what is happening, stop a second payment, show refund progress, and start help from the payment itself.</p></div><div><b>What it should change</b><p>A clearer status, a safer next move and an ending that says what comes next. Expected, not measured: testing is the next step.</p></div></div>
+<p class="k cv-hint">Scroll ↓</p></header>
+
+
 
 <section class="sc" data-m=""><div class="col sg" id="s1">
 <div class="stick"><div class="scn"><div class="bk" id="bk1"></div><div class="bub" id="b1"></div>
@@ -152,30 +144,35 @@ mark{background:linear-gradient(transparent 58%,var(--y) 58%) no-repeat;backgrou
 <g class="vc" tabindex="0" data-i="1"><circle cx="390" cy="150" r="115" fill="#D99A242a"/><text x="445" y="120">The café</text><text x="445" y="140">Nothing received</text></g>
 <g class="vc" tabindex="0" data-i="2"><circle cx="320" cy="262" r="115" fill="#6F2DBD1c"/><text x="320" y="318">The app</text><text x="320" y="338">Pending</text></g>
 <text x="320" y="205" style="font:500 44px 'DM Mono',ui-monospace,monospace;text-anchor:middle;fill:#111">?</text></svg>
-<div><p class="big" id="vt" style="font-size:clamp(22px,2.6vw,32px)">Each one is telling the truth about what it can see.</p><p style="color:var(--mut)">None of them tells her what to do. I hover this diagram because that is the whole problem in one picture. A customer who is caught between a shop and an app shows up again and again in public complaints.</p></div></div></div></section>
+<div><p class="big" id="vt" style="font-size:clamp(22px,2.6vw,32px)">Each one is telling the truth about what it can see.</p><p style="color:var(--mut)">None of them tells her what to do. A customer caught between a shop and an app shows up again and again in public complaints.</p></div></div></div></section>
 
 <section class="sc" data-m="warn"><div class="col sg"><div class="stick"><div class="scn"><div class="bk" id="bk2"></div><div class="bub" id="b2"></div><div class="duo" style="justify-content:center"><div class="pfw" style="width:62%"><div class="pf" id="p2"></div></div></div></div></div>
-<div><p class="k">What goes wrong</p><h2 class="rv">Four small failures inside one stressful minute.</h2><ul class="pl" id="pl"></ul></div></div></section>
+<div><p class="k">What goes wrong</p><h2 class="rv">Four places she gets stuck.</h2><ul class="pl" id="pl"></ul></div></div></section>
 
 <section class="sc" data-m="warn"><div class="col"><p class="k">What people say</p><h2 class="rv">I went looking for other people in this moment. This is what turned up.</h2><div class="ev" id="ev"></div>
 <p style="color:var(--mut)">Read three of these side by side and they say the same thing: <mark>wait, check, don’t retry</mark>. The app is the one place that could say it at the right moment.</p>
-<p class="k" style="max-width:46em">Honest notes: none of this is research I ran. No survey, no interviews, no usability test. Complaint sites skew angry, so these show the problem exists, not how often. Two of the complaints are from 2019 and the app has changed since.</p></div></section>
+<h3 style="margin-top:56px">What the research shows, and what it misses</h3>
+<p style="color:var(--mut)">Eight public sources: three complaint pages, two news explainers and three PhonePe pages. I sorted the seven quotes above under the four problems in the next section.</p>
+<div class="tw"><table class="mx" id="evm" aria-label="Evidence by problem and source type"></table></div>
+<div class="cl"><div><p class="k">What this tells me</p><ol><li>Unclear status and unclear next move are reported by several independent sources, including PhonePe’s own help pages.</li><li>“Help starts from zero” rests on a single 2019 complaint. It is the weakest of the four.</li></ol></div>
+<div><p class="k">What it cannot tell me</p><ol><li>How often this happens. Complaint sites skew angry.</li><li>What the merchant sees. Every source is from the payer’s side.</li><li>Whether the app has changed since the 2019 complaints.</li></ol></div></div>
+<p class="k" style="max-width:46em">None of this is research I ran: no survey and no interviews. The first things I would add are interviews with people whose payment got stuck in the last six months, and one with a merchant.</p></div></section>
 
 <section class="sc" data-m="fail"><div class="col"><p class="k">The app today</p><h2 class="rv">What the existing screens say when it goes wrong.</h2>
-<p style="color:var(--mut)">Five screenshots supplied for this case study, cropped so no transaction IDs show. They come from different dates and devices, so this is about how the app has spoken over time, not a verdict on today’s release.</p>
+<p style="color:var(--mut)">Five screenshots of existing PhonePe screens, cropped so no transaction IDs show. They come from different dates and devices, so this is about how the app has spoken over time, not a verdict on today’s release.</p>
 <div class="ex" id="ex"></div><p class="big">Across all five, the same three things keep coming back: <mark>try again later</mark>, a conditional note about the money, and a retry button. That is the gap this redesign is for.</p></div></section>
 
 <section class="sc" data-m="warn"><div class="col"><p class="k">What today’s guidance says</p><h2 class="rv">Everyone says wait. <mark>Nobody agrees for how long.</mark></h2>
 <p style="color:var(--mut)">These are the windows PhonePe’s own pages give for different payment types. Hover a row.</p>
 <div class="ch" id="ch"></div><div class="ax"><div></div><div class="k"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10 days</span></div></div><div id="cd" class="k"></div>
-<p class="k" style="max-width:46em">Bars show the range each page states. The grievance policy line comes from the research behind this case study. Check current policy before relying on any of them: this is exactly why the screens must show the window for the payment in front of her.</p></div></section>
+<p class="k" style="max-width:46em">Bars show the range each page states. Check current policy before relying on any of them: this is why the screens must show the window for the payment in front of her.</p></div></section>
 
 <section class="sc" data-m=""><div class="col"><p class="k">The opportunity</p><h2 class="rv">I didn’t want to add features. I wanted one stretch of the product to finally make sense.</h2>
 <p style="color:var(--mut)">Payment, then something goes wrong, then recovery. Four jobs for the screen.</p><ul class="pl" id="op"></ul>
 <p class="k" style="max-width:46em">In scope: pending and failed states, status checking, outcomes, transaction details, refund information and support. Out of scope: the rest of the app, live bank integration, and promises the interface can’t verify.</p></div></section>
 
 <section class="sc" data-m=""><div class="col ig"><div><p class="k">The insight</p><h2 class="rv">She doesn’t need a bigger error message.</h2><p style="color:var(--mut)">A status is a label. What helps is what sits behind it. Pick one.</p>
-<div class="wd" id="wd"></div><div class="qa" id="qa"></div><p class="k" style="margin-top:20px">Demo data. Wording follows the designed screens and has to be checked against real transaction states and current policy.</p></div>
+<div class="wd" id="wd"></div><div class="qa" id="qa"></div><p class="k" style="margin-top:20px">Demo data. Check the wording against real transaction states and current policy before it ships.</p></div>
 <div class="scn" style="width:min(340px,100%)"><div class="bk" id="bk3"></div><div class="bub" id="b3"></div><div class="duo" style="justify-content:center"><div class="pfw" style="width:70%"><div class="pf" id="p3"></div></div></div></div></div></section>
 
 <section class="sc" data-m=""><div class="col"><p class="k">The flow</p><h2 class="rv">Check first. Then a receipt, or a way forward.</h2>
@@ -183,25 +180,43 @@ mark{background:linear-gradient(transparent 58%,var(--y) 58%) no-repeat;backgrou
 <div class="fw"><svg id="fs" viewBox="0 0 1100 725" role="group" aria-label="Payment recovery user flow"></svg></div><p class="k" id="fc" style="min-height:44px"></p>
 <div class="four"><div><b>Understand</b><p>Say what is happening before offering a button.</p></div><div><b>Check</b><p>Give a status check its own visible step.</p></div><div><b>Confirm</b><p>Show the outcome with its details.</p></div><div><b>Recover</b><p>Show the refund, the help and what comes next.</p></div></div></div></section>
 
-<section class="sc" id="scr" data-m=""><div class="col"><p class="k">The screens</p><h2 class="rv">Eight screens, in the order she meets them.</h2></div>
+<section class="sc" id="scr" data-m=""><div class="col"><p class="k">The screens</p><h2 class="rv">Ten screens, in the order she meets them.</h2></div>
 <div class="col sg" style="margin-top:6vh"><div class="stick"><div class="scn s4"><div class="bk" id="bk4"></div><div class="bub" id="b4"></div><div class="ph" id="ph"></div><div class="pfw"><div class="pf" id="p4"></div></div></div></div>
 <div class="steps" id="ss"></div></div>
-<div class="col"><p class="k">Reactions are design intent, not test results. The prototype’s outcome is simulated, with no live bank or PhonePe connection. Figma prototype: [add link before publishing]</p></div></section>
+<div class="col"><p class="k">Her reactions are design intent, not test results.</p></div></section>
 
-<section class="sc" data-m="ok"><div class="col"><p class="k">What this changes</p><h2 class="rv">A calmer ending to a stressful moment.</h2>
+<section class="sc" data-m="ok"><div class="col"><p class="k">What this changes</p><h2 class="rv">From a spinner to a plan.</h2>
 <p class="big" style="margin-top:30px">Instead of only saying the payment failed, the flow tells her <mark>what the status is</mark>, keeps her from <mark>paying twice</mark>, and shows <mark>what happens next</mark>.</p>
 <div class="cl"><div><p><b>Clearer status.</b> She can tell processing, attention, failed and paid apart.</p><p><b>A safer next move.</b> “Don’t pay again yet” sits right where the temptation starts.</p></div><div><p><b>A real ending.</b> A receipt on success, a refund tracker on failure.</p><p><b>Help that already knows.</b> Support starts from the payment she is looking at.</p></div></div>
 <p class="k">These are expected benefits. Nothing here is measured.</p>
 <div class="scn wide"><div class="bk" id="bk5"></div><div class="duo"><div class="pfw" style="width:30%"><div class="pf" id="t1"></div></div><div class="pfw" style="width:30%"><div class="pf" id="t2"></div></div><div class="pfw" style="width:30%"><div class="pf" id="t3"></div></div></div></div></div></section>
 
-<section class="sc" data-m=""><div class="col"><p class="k">Validation, planned</p><h2 class="rv">I haven’t tested this yet. Here is how I would.</h2>
+<section class="sc" data-m="" id="ut"><div class="col"><p class="k">Usability test plan</p><h2 class="rv">How I would test it.</h2>
 <p class="big" style="margin-top:30px">“You paid ₹1,250 to a merchant. The payment is still being processed. Show me what you would do next.”</p>
-<div class="cl"><div><p class="k">Watch for</p><ol><li>Can they explain what is happening?</li><li>Do they know whether to pay again?</li><li>Can they find the status check and help?</li><li>Do they understand what happens if it finally fails?</li></ol></div>
-<div><p class="k">It works if they</p><ol><li>Understand the status on their own</li><li>Choose the right next step</li><li>Explain the refund timeline simply</li><li>Know how the payment ended</li></ol></div></div>
-<p class="k">No participants recruited. No results exist.</p></div></section>
+<div class="cl"><div><p class="k">Setup</p><ol><li>5 people, one at a time, over video</li><li>They think out loud while using the screens</li><li>About 15 minutes each</li><li>No hints until someone is stuck</li></ol></div><div><p class="k">Four tasks</p><ol><li>Say what is happening to the payment</li><li>Decide whether to pay again</li><li>Find the status check and help</li><li>Say what happens if it fails</li></ol></div></div>
+<h3 style="margin-top:56px">What counts as a pass</h3>
+<div class="tw"><table class="mx" aria-label="Pass criteria by task"><thead><tr><th>Task</th><th>Passes when</th></tr></thead><tbody>
+<tr><td><b>1. What is happening</b></td><td>She says the money is safe and the payment is still being processed.</td></tr>
+<tr><td><b>2. Pay again?</b></td><td>She chooses to wait and does not retry.</td></tr>
+<tr><td><b>3. Status and help</b></td><td>She finds both without a hint.</td></tr>
+<tr><td><b>4. If it fails</b></td><td>She says the money goes back to her bank and roughly when.</td></tr>
+</tbody></table></div>
+<p class="k" style="max-width:46em">If two or more of five people miss a task, I fix that screen before anything else.</p>
+</div></section>
+
+<section class="sc" data-m=""><div class="col"><p class="k">Measuring it</p><h2 class="rv">How I would know it worked in the real app.</h2>
+<p style="color:var(--mut)">I have no PhonePe data, so these are hypotheses with a direction, not targets.</p>
+<div class="tw"><table class="mx" aria-label="Success measures"><thead><tr><th>Measure</th><th>Why it matters</th><th>Direction</th></tr></thead><tbody>
+<tr><td><b>Support contacts per failed or pending payment</b></td><td>Shows whether the screen answers the question before she calls.</td><td>Down</td></tr>
+<tr><td><b>Duplicate payments after a pending state</b></td><td>The panic loop: she pays again while the first one is still going through.</td><td>Down</td></tr>
+<tr><td><b>Quick retries after a pending status</b></td><td>Shows whether “Don’t pay again yet” changes behaviour.</td><td>Down</td></tr>
+<tr><td><b>Status check taps on the attention screen</b></td><td>Shows she finds and uses the safe next step.</td><td>Up</td></tr>
+<tr><td><b>Refund tracker views before a support contact</b></td><td>Shows the tracker replaces a call.</td><td>Up</td></tr>
+</tbody></table></div>
+<p class="k" style="max-width:46em">Assumptions to verify first: the app can know whether the money is safe, the refund windows match current policy, and support can receive the payment details with the request.</p></div></section>
 
 <section class="sc dark"><div class="col"><h2 class="rv" style="max-width:14em">Small flow. Important moment.</h2>
-<p style="color:#bbb;margin-top:24px">Next I’d check the wording against real bank states and current policy, test it with real people, and adapt it to the many ways a UPI payment can go wrong. Design for the moment people need answers most.</p>
+<p style="color:#bbb;margin-top:24px">Next: check the wording against real bank states and current policy, run the test with real people, and cover the other ways a UPI payment can go wrong.</p>
 <p class="k" style="color:#999;max-width:52em;margin-top:60px">An independent concept redesign. Not an official PhonePe release and not connected to any bank or PhonePe system. Colours are a presentation palette, not brand tokens.<br><br>Sources:
 <a href="https://www.sikayetvar.com/en/phonepe-us/phonepe-payment-debited-but-merchant-didnt-receive-money">Sikayetvar</a> ·
 <a href="https://voxya.com/consumer-complaints/money-transaction-pending-for-more-than-3-days/16799">Voxya (pending)</a> ·
@@ -297,16 +312,10 @@ const story=(steps,cb)=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if
 const body=document.body;
 new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)body.dataset.m=e.target.dataset.m||''}),{rootMargin:'-50% 0px -50% 0px'}).observe&&$$('[data-m]').forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)body.dataset.m=s.dataset.m}),{rootMargin:'-48% 0px -48% 0px'}).observe(s));
 
-/* hero: scroll-driven payment */
-(function(){const hero=$('#hero'),rg=$('#rgc'),lys=$$('.hero .ly'),cs=$$('.hero .chp'),st=$('#hstep');
-const NAMES=['1 of 4 · Paying','2 of 4 · Pending','3 of 4 · Failed','4 of 4 · Which one is true?'];let last=-1;
-function upd(){const r=hero.getBoundingClientRect(),h=hero.offsetHeight-innerHeight,p=RM?1:Math.min(1,Math.max(0,-r.top/Math.max(1,h)));
-const k=p<.22?0:p<.46?1:p<.7?2:3;
-rg.style.strokeDashoffset=String(100-(k===0?Math.min(1,p/.2)*68:68));
-if(k!==last){last=k;lys.forEach((l,i)=>l.classList.toggle('on',i===k));hero.dataset.s=k;st.textContent=NAMES[k]}
-cs.forEach((c,i)=>c.classList.toggle('on',p>[.2,.34,.5,.62][i]));
-hero.classList.toggle('end',p>.8);hero.style.setProperty('--p',p)}
-addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd()})();
+/* cover */
+bk('#bkc','light');
+const CA=[['#ca1','polka','worry'],['#ca2','beard','confused'],['#ca3','tank','shock']],CM=['worry','confused','shock','relief','happy','calm'];
+CA.forEach(a=>{putA(a[0],a[1],a[2]);const el=$(a[0]).parentElement;let i=CM.indexOf(a[2]);const go=()=>{i=(i+1)%CM.length;putA(a[0],a[1],CM[i])};el.onclick=go;el.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();go()}}});
 
 /* scene 1 */
 bk('#bk1','light');const n1=$$('#s1 .note');put('#p1','woman','phone','calm');put('#p1b','man','hips','calm');say($('#b1'),'Quick coffee.');
@@ -323,13 +332,13 @@ function lst(id,data,cb){const u=$(id);u.innerHTML=data.map((d,i)=>`<li tabindex
 lst('#pl',PN,i=>{putA('#p2',PW[i],PN[i][3]);say($('#b2'),PN[i][4])});
 
 /* evidence */
-const EV=[['01','A customer paid ₹100 at a shop by scanning its QR. <mark>The money left their account, the shopkeeper never saw it</mark>, and they got nothing. The complaint ends with an offer to send screenshots.','Sikayetvar complaint','https://www.sikayetvar.com/en/phonepe-us/phonepe-payment-debited-but-merchant-didnt-receive-money'],
-['01','At a medical store a payment sat in pending. Two days later the app said it succeeded, <mark>but the shopkeeper said it never arrived</mark>.','Voxya complaint','https://voxya.com/consumer-complaints/money-transaction-pending-for-more-than-3-days/16799'],
-['03','Someone was told to wait until midnight, then a few more days. <mark>Meanwhile the money was neither with the receiver nor back with them.</mark>','Voxya complaint, 2019','https://voxya.com/consumer-complaints/money-transaction-pending-for-more-than-3-days/16799'],
-['04','A transfer showed as credited and never reached the receiver. <mark>The app sent them to the bank, and the bank said it couldn’t help</mark> with an online transaction.','Voxya complaint, 2019','https://voxya.com/consumer-complaints/amount-not-credited/15590'],
-['02','The panic loop: a payment fails, you retry in a hurry, and <mark>the first one lands a few minutes later</mark>. Now you’ve paid twice.','India TV News, June 2026','https://www.indiatvnews.com/technology/news/upi-transaction-failed-but-money-was-deducted-here-s-how-to-get-a-refund-on-paytm-phonepe-gpay-and-bhim-2026-06-02-1043343'],
-['02','The advice is to hold off retrying, <mark>give reversals a day or two</mark>, and check history or the bank before complaining.','Outlook Money','https://www.outlookmoney.com/banking/upi-payment-failed-but-money-deducted-what-should-you-do'],
-['03','PhonePe’s own help page says a pending wallet payment can take <mark>anywhere from 5 minutes to 2 days</mark>, depending on the merchant, and that the money is safe.','PhonePe Help','https://cms.phonepe.com/en/myhelp/understanding-payments-phonepe/payments-using-phonepe-wallet/payment-statuses-ppwallet']];
+const EV=[['01','A customer paid ₹100 at a shop by scanning its QR. <mark>The money left their account, the shopkeeper never saw it</mark>, and they got nothing. The complaint ends with an offer to send screenshots.','Sikayetvar complaint','https://www.sikayetvar.com/en/phonepe-us/phonepe-payment-debited-but-merchant-didnt-receive-money','c'],
+['01','At a medical store a payment sat in pending. Two days later the app said it succeeded, <mark>but the shopkeeper said it never arrived</mark>.','Voxya complaint','https://voxya.com/consumer-complaints/money-transaction-pending-for-more-than-3-days/16799','c'],
+['02','The panic loop: a payment fails, you retry in a hurry, and <mark>the first one lands a few minutes later</mark>. Now you’ve paid twice.','India TV News, June 2026','https://www.indiatvnews.com/technology/news/upi-transaction-failed-but-money-was-deducted-here-s-how-to-get-a-refund-on-paytm-phonepe-gpay-and-bhim-2026-06-02-1043343','n'],
+['02','The advice is to hold off retrying, <mark>give reversals a day or two</mark>, and check history or the bank before complaining.','Outlook Money','https://www.outlookmoney.com/banking/upi-payment-failed-but-money-deducted-what-should-you-do','n'],
+['03','Someone was told to wait until midnight, then a few more days. <mark>Meanwhile the money was neither with the receiver nor back with them.</mark>','Voxya complaint, 2019','https://voxya.com/consumer-complaints/money-transaction-pending-for-more-than-3-days/16799','c'],
+['03','PhonePe’s own help page says a pending wallet payment can take <mark>anywhere from 5 minutes to 2 days</mark>, depending on the merchant, and that the money is safe.','PhonePe Help','https://cms.phonepe.com/en/myhelp/understanding-payments-phonepe/payments-using-phonepe-wallet/payment-statuses-ppwallet','o'],
+['04','A transfer showed as credited and never reached the receiver. <mark>The app sent them to the bank, and the bank said it couldn’t help</mark> with an online transaction.','Voxya complaint, 2019','https://voxya.com/consumer-complaints/amount-not-credited/15590','c']];
 $('#ev').innerHTML=EV.map(e=>`<article class="rv"><span class="k">Pain point ${e[0]}</span><p>${e[1]}</p><a class="k" href="${e[3]}" target="_blank" rel="noopener">${e[2]} ↗</a></article>`).join('');
 
 /* chart */
@@ -372,7 +381,7 @@ const SC=[['proc','Payment processing','In the moment','phone','calm','It’s go
 ['nopay','Don’t pay again yet','From the attention screen','hips','relief','Right. Not paying twice.','The attention screen opens into three screens that stop her making it worse. This one names the risk, a double charge, at the moment the temptation shows up: your money is safe, give it a few minutes, avoid paying again.','Check payment status is filled, Got it is an outline. The safest action is the most visible one.'],
 ['guide','Recovery guide','From the attention screen','phone','calm','A plan. Good.','A plan instead of a mood. Four numbered steps: wait a few minutes, check again, expect an automatic refund if it stays unresolved, then track it or contact support with the reference. An expected timeline sits underneath.','Timelines, and the regulatory wording on screen, have to be checked against policy before this ships.'],
 ['help','Get help','From the attention screen','hips','relief','They already know why I’m here.','Help starts from what happened, in her words: money deducted but payment failed, pending too long, paid twice, merchant didn’t receive it, something else. Picking one routes the request and the payment goes with her.','Sensitive data has to be handled carefully, and support availability shouldn’t be overstated.'],
-['chk','Checking status','A little later','phone','calm','It’s checking.','Some time later she checks. Three lines tell her what is happening: connecting to the UPI network, querying the bank, fetching merchant confirmation. Checking gets its own screen so waiting feels like progress, not nothing.','No buttons. It moves on when the result arrives. In the prototype, that result is simulated.'],
+['chk','Checking status','A little later','phone','calm','It’s checking.','Some time later she checks. Three lines tell her what is happening: connecting to the UPI network, querying the bank, fetching merchant confirmation. Checking gets its own screen so waiting feels like progress, not nothing.','No buttons. It moves on when the result arrives.'],
 ['done','Payment completed','A little later, one ending','cheer','happy','Paid. Got the receipt.','The happy ending is short. A green header and a receipt with status, reference, time and the account it came from. Its only job is proof.','Back to home is the main action. Pay again, share and support stay secondary.'],
 ['fail','Payment failed','A little later, the other ending','hips','relief','Money’s safe. I know what’s next.','The other ending starts with reassurance: your money is safe, here is the refund. Only then the reference, reason and refund account. Red always travels with the words <mark>Payment failed</mark>.','Contact support is the main action. Back to home stays quiet.'],
 ['fail2','Track the refund','A little later, the other ending','phone','relief','Now I can see where it is.','Scroll on and the refund opens into three stages: <mark>refund initiated, bank processing, refund credited</mark>, each with a date. This is where “initiated” and “credited” stop meaning the same thing.','Detail stays behind a tap so the first view is calm. The dates have to match policy and the real bank state.']];
@@ -389,6 +398,14 @@ const EX=[['ex_pend','Pending · March 2021','This one does a lot right. It says
 $('#ex').innerHTML=EX.map(e=>`<article class="rv"><img src="${IMG[e[0]]}" alt="${e[1]} screenshot of the existing app"><div><span class="k">${e[1]}</span><p>${e[2]}</p></div></article>`).join('');
 
 bk('#bk5','purple');putA('#t1','beanie','happy');putA('#t2','tank','happy');putA('#t3','jacket','happy');
+
+
+/* evidence matrix + usability test */
+{
+const PNm=['The status is unclear','The next move is unclear','What happens next is unclear','Help starts from zero'];
+$('#evm').innerHTML='<thead><tr><th>Problem</th><th>Complaints</th><th>News</th><th>PhonePe pages</th><th>How solid</th></tr></thead><tbody>'+PNm.map((n,i)=>{const r=EV.filter(e=>+e[0]==i+1),c=t=>r.filter(e=>e[4]==t).length;return `<tr><td><b>${i+1}.</b> ${n}</td><td>${c('c')}</td><td>${c('n')}</td><td>${c('o')}</td><td>${r.length>=2?'Two or more sources':'One source only'}</td></tr>`}).join('')+'</tbody>';
+
+}
 
 /* reveal */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});$$('.rv,mark').forEach(e=>io.observe(e));
