@@ -495,7 +495,7 @@ function setupJourney(){
   if(!jReady)return;
   const r=jst.getBoundingClientRect();stW=r.width||innerWidth;stH=r.height||innerHeight;
   const oc=P(8.9,4.7,1.2),oz=mobileJ()?Math.max(.98,IW/Math.max(1000,stW/stH*820)):Math.min(1.02,stW/stH*820/IW*1.04);
-  CAM.ov={x:oc[0],y:oc[1],z:mobileJ()?1.45:Math.max(.74,oz)};
+  CAM.ov={x:oc[0],y:oc[1]-(mobileJ()?0:50),z:mobileJ()?1.45:Math.max(.74,oz)*.95};
   if(mobileJ())CAM.ov.z=Math.min(1.5,IW/ (stW/stH*860));
   for(let i=0;i<4;i++)CAM[i]=camFor(i);
   KF=[{p:0,c:CAM.ov,s:0},{p:.06,c:CAM.ov,s:0},{p:.17,c:CAM[0],s:STOP_S[0]},{p:.30,c:CAM[0],s:STOP_S[0]},{p:.40,c:CAM[1],s:STOP_S[1]},{p:.54,c:CAM[1],s:STOP_S[1]},{p:.64,c:CAM[2],s:STOP_S[2]},{p:.77,c:CAM[2],s:STOP_S[2]},{p:.87,c:CAM[3],s:STOP_S[3]},{p:.95,c:CAM[3],s:STOP_S[3]},{p:1,c:CAM.ov,s:TOT}];

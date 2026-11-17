@@ -1542,9 +1542,11 @@ html:not(.hf-pre) .hf-load{display:none!important}
 .dock a{min-height:44px!important}.hf-skip{min-height:44px;min-width:44px}.tbtn{min-width:44px;min-height:44px}
 .jcard .nav button{min-height:44px}.strip .foot button{min-height:44px}
 @media(max-width:520px){.dock{max-width:calc(100vw - 12px)!important;overflow-x:auto;scrollbar-width:none}.dock::-webkit-scrollbar{display:none}.dock a{padding:10px 7px!important;font-size:9.5px!important;letter-spacing:.05em!important;min-height:38px;flex:0 0 auto}}
-/* journey pin labels: same legible white-on-dark outline in day and night */
-.jmap .pinm .plab text{fill:#fff!important;stroke:#14110F!important;stroke-width:4px;paint-order:stroke;stroke-linejoin:round;font-family:var(--sans);letter-spacing:.01em}
-:root[data-theme="dark"] .jmap .pinm .plab text{fill:#FBF8F0!important;stroke:#05060A!important}
+/* journey: minimal pin labels, and the stage blends into the page grid (no separate backdrop, no hard edges) */
+.jmap .pinm .plab text{fill:#14110F!important;stroke:none!important;font-family:var(--sans);font-weight:600;letter-spacing:0}
+:root[data-theme="dark"] .jmap .pinm .plab text{fill:#fff!important;stroke:none!important}
+.jsticky,:root[data-theme="dark"] .jsticky{background:transparent!important}
+.jmap{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%);mask-composite:intersect}
 .jhint{background:var(--paper);padding:8px 12px 8px 14px;border:1px solid var(--line);color:var(--ink)}
 /* ===== Home: left-aligned stack + portrait on a lime disc (matches the reference card) ===== */
 .h2sub,.h2role{margin:0;font-family:var(--sans)!important;color:var(--ink)}
