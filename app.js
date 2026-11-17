@@ -15,7 +15,6 @@ const SITE={
   primary:'View case studies',secondary:'Download resume'},
  /* Proof strip. Items whose n is TODO or empty are hidden. */
  proof:[
-  {n:'3',l:'case studies'},
   {n:'1,500+',l:'social and campaign assets designed'},
   {n:'10+',l:'packaging projects'},
   {n:TODO,l:'brand identities'} /* TODO: confirm the number (resume versions disagree). Hidden until filled, e.g. {n:'12',l:'brand identities'} */
@@ -121,7 +120,7 @@ function icon(k){const o=ICONS[k];return `<svg viewBox="${o.vb}" aria-hidden="tr
   const R=SITE.resume,url=R.pdfReady?R.pdf:R.drive;
   $$('[data-resume]').forEach(a=>{a.href=url;if(R.pdfReady){a.removeAttribute('target');a.removeAttribute('rel');a.setAttribute('download','')}else{a.target='_blank';a.rel='noopener'}});
   $('#heroEyebrow').textContent=SITE.hero.eyebrow;$('#heroPara').textContent=SITE.hero.para;
-  $('#ctaPrimary').firstChild.nodeValue=SITE.hero.primary+' ';$('#ctaSecondary').textContent=SITE.hero.secondary;
+  $('#ctaPrimary').firstChild.nodeValue=SITE.hero.primary+' ';
   $('#footTxt').textContent=SITE.footer;
   const pl=SITE.proof.filter(p=>has(p.n)&&has(p.l));
   $('#proofList').innerHTML=pl.map(p=>`<li><b>${esc(p.n)}</b><span>${esc(p.l)}</span></li>`).join('');

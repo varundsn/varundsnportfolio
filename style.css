@@ -1566,7 +1566,7 @@ html.hf-pre:not(.hf-3) :is(.h2sub,.h2role){opacity:0}
  .hero .h2s{margin-top:calc(1.8*var(--u))!important;max-width:calc(40*var(--u));width:min(100%,calc(40*var(--u)))!important}
  .h2q{font-size:max(15px,calc(1.35*var(--u)))!important}
  .h2c>.hf-ctas{margin-top:calc(2*var(--u));justify-content:flex-start}
- .hero .h2p{left:auto!important;right:calc(5*var(--u))!important;translate:none;height:78%!important;bottom:72px!important;transform-origin:50% 100%}
+ .hero .h2p{left:auto!important;right:calc(31*var(--u))!important;translate:50% 0;height:78%!important;bottom:72px!important;transform-origin:50% 100%}
  .hf-disc,.hf-ring{left:auto;right:calc(5*var(--u) + 0px)}
  .hf-disc{top:auto;bottom:calc(72px + 14%);width:calc(46*var(--u));height:calc(46*var(--u));margin:0 calc(3*var(--u)) 0 0}
  html:not(.hf-pre) .hf-disc,html.hf-2 .hf-disc{clip-path:none}
@@ -1580,3 +1580,5 @@ html.hf-pre:not(.hf-3) :is(.h2sub,.h2role){opacity:0}
 @media(max-width:1000px){.h2sub,.h2role{order:1;text-align:left}.h2sub{margin-top:12px}.h2role{font-size:clamp(24px,7.4cqi,34px)}
  .hero h1.h2t{text-align:left!important}.h2name{font-size:29cqi!important;text-align:left;line-height:.92!important}.h2name>span[aria-hidden]{flex-direction:column;align-items:flex-start;gap:0}
  .hf-stage{margin-top:6cqi}.h2v{color:var(--ink)}:root[data-theme="dark"] .h2v{color:var(--neon)!important}}
+
+@media(min-width:1001px){.mq{bottom:62px!important}}
