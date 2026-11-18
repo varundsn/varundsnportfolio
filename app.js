@@ -4,6 +4,7 @@
 const TODO='TODO';
 const SITE={
  siteUrl:'https://varundsnportfolio.vercel.app', /* TODO: confirm the live domain, then update <link rel="canonical">, og:url, og:image and the JSON-LD in <head> to match */
+ contact:{email:'varunsdusane@gmail.com',phone:'+91 93731 38407',phoneHref:'tel:+919373138407'},
  links:{email:'mailto:varunsdusane@gmail.com',linkedin:'https://www.linkedin.com/in/varundusane/',behance:'https://www.behance.net/varundusane'},
  resume:{
   pdf:'resume.pdf',          /* upload your PDF to the site root with this name (see README.md) */
@@ -702,8 +703,6 @@ $('#notes').addEventListener('click',e=>{const b=e.target.closest('.pin');if(!b)
 /* ======================= CONTACT ======================= */
 (function(){
   
-  $('#copyMail').addEventListener('click',async()=>{const m=$('#copyMsg');const done=ok=>{m.textContent=ok?'Email address copied':'Press Ctrl or Cmd + C to copy';$('#copyMail').textContent=ok?'Copied':'Select and copy';setTimeout(()=>$('#copyMail').textContent='Copy',2200)};
-    try{await navigator.clipboard.writeText('varunsdusane@gmail.com');done(true)}catch(e){const r=document.createRange();r.selectNodeContents($('.copyrow code'));const s=getSelection();s.removeAllRanges();s.addRange(r);done(false)}});
   $('#toTop').addEventListener('click',()=>scrollTo({top:0,behavior:RM?'auto':'smooth'}));
 })();
 
@@ -754,117 +753,31 @@ let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(layout,150)
 addEventListener('load',()=>setTimeout(layout,200));
 if('ResizeObserver' in window){let ph=0,pt;new ResizeObserver(()=>{const h=Math.round(page.getBoundingClientRect().height);if(Math.abs(h-ph)<2)return;ph=h;clearTimeout(pt);pt=setTimeout(layout,250)}).observe(page)}
 layout();
-/* ===== contact room ===== */
+/* ===== contact scene: screen with details, brochures open the catalogue ===== */
 (function(){
   const room=document.getElementById('room');if(!room)return;
-  const svg=document.getElementById('rsvg'),NS='http://www.w3.org/2000/svg',RMo=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  const back=document.getElementById('rBack'),toast=document.getElementById('rToast'),live=document.getElementById('rLive');
-  const hots=[...svg.querySelectorAll('.hot')],mail=document.getElementById('rMail'),pxs=[...svg.querySelectorAll('.px')];
-  const mobile=()=>innerWidth<720;
-  const ASP=()=>{const r=room.getBoundingClientRect();return r.width/Math.max(1,r.height)};
-  /* camera: a viewBox that always covers the frame, centred on the scene */
-  function baseVB(){
-    const roi=mobile()?[215,60,790,640]:[0,0,1200,740],r=room.getBoundingClientRect(),cw=Math.max(1,r.width),ch=Math.max(1,r.height),s=Math.max(cw/roi[2],ch/roi[3]),W=cw/s,H=ch/s;
-    return [roi[0]+(roi[2]-W)/2,roi[1]+(roi[3]-H)/2,W,H];
+  const RMo=matchMedia('(prefers-reduced-motion:reduce)').matches,back=document.getElementById('rBack');
+  const C=SITE.contact;
+  const mail=document.getElementById('csMail'),tel=document.getElementById('csTel');
+  if(has(C.email)){mail.href='mailto:'+C.email+'?subject=Hello%20Varun';document.getElementById('csMailTxt').textContent=C.email}else mail.closest('li').hidden=true;
+  if(has(C.phone)&&has(C.phoneHref)){tel.href=C.phoneHref;document.getElementById('csTelTxt').textContent=C.phone}else tel.closest('li').hidden=true;
+  document.getElementById('csBe').href=LINKS.behance;document.getElementById('csLi').href=LINKS.linkedin;
+  /* wall clock shows the real time */
+  const hh=document.getElementById('csHH'),hm=document.getElementById('csHM');
+  const tick=()=>{const d=new Date(),m=d.getMinutes(),h=d.getHours()%12;hm.style.transform='rotate('+(m*6+d.getSeconds()*.1)+'deg)';hh.style.transform='rotate('+(h*30+m*.5)+'deg)'};tick();setInterval(tick,20000);
+  /* animations only run while the scene is on screen */
+  if('IntersectionObserver' in window)new IntersectionObserver(e=>room.classList.toggle('live',e[0].isIntersecting),{rootMargin:'80px'}).observe(room);else room.classList.add('live');
+  /* brochures */
+  let lastBro=null;
+  function openCat(btn){
+    lastBro=btn;const y=btn.dataset.b==='1';
+    room.dataset.zoom='catalogue';back.hidden=false;
+    setTimeout(()=>{const t=document.getElementById(y?'tabY':'tabF');t&&t.click()},RMo?30:700);
   }
-  let vb=baseVB(),zoomEl=null,anim=0;
-  const setVB=a=>svg.setAttribute('viewBox',a.map(n=>n.toFixed(2)).join(' '));
-  setVB(vb);
-  function tween(to,done){
-    cancelAnimationFrame(anim);const from=vb.slice();
-    if(RMo){vb=to.slice();setVB(vb);done&&done();return}
-    const t0=performance.now(),D=850,ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-    (function step(now){const p=Math.min(1,(now-t0)/D),e=ease(p);vb=from.map((f,i)=>f+(to[i]-f)*e);setVB(vb);if(p<1)anim=requestAnimationFrame(step);else done&&done()})(t0);
-  }
-  function say(msg,ms){toast.textContent=msg;toast.classList.add('show');live.textContent=msg;clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),ms||2200)}
-
-  /* ---- parallax depth ---- */
-  let mx=0,my=0,cx0=0,cy0=0,praf=0;
-  function ptick(){
-    cx0+=(mx-cx0)*.08;cy0+=(my-cy0)*.08;
-    pxs.forEach(g=>{const d=+g.dataset.d;g.style.transform='translate('+(-cx0*d*16).toFixed(2)+'px,'+(-cy0*d*8).toFixed(2)+'px)'});
-    if(Math.abs(mx-cx0)>.001||Math.abs(my-cy0)>.001)praf=requestAnimationFrame(ptick);else praf=0;
-  }
-  if(!RMo&&matchMedia('(hover:hover) and (pointer:fine)').matches){
-    room.addEventListener('pointermove',e=>{if(zoomEl)return;const r=room.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5;if(!praf)praf=requestAnimationFrame(ptick)});
-    room.addEventListener('pointerleave',()=>{mx=0;my=0;if(!praf)praf=requestAnimationFrame(ptick)});
-  }
-  function flatten(){mx=my=cx0=cy0=0;pxs.forEach(g=>g.style.transform='')}
-
-  /* ---- camera zoom ---- */
-  function targetVB(el,kind){
-    const f=el.querySelector('[data-focus]')||el,b=f.getBBox(),m=mobile(),A=ASP();
-    const mon=kind==='monitor',frac=mon?(m?.55:.4):(m?.4:.3),cx=m?.5:(mon?.3:.3),cy=m?(mon?.3:.27):.5;
-    const tw=b.width/frac,th=tw/A;
-    return [b.x+b.width/2-tw*cx,b.y+b.height/2-th*cy,tw,th];
-  }
-  function zoomTo(el,kind){
-    if(zoomEl)return;zoomEl=el;el.classList.add('active');toast.classList.remove('show');
-    flatten();room.dataset.zoom=kind;hots.forEach(h=>h.tabIndex=-1);
-    const p=document.querySelector('.rpanel[data-for="'+kind+'"]');
-    tween(targetVB(el,kind),()=>{const a=p&&p.querySelector('a');a&&a.focus({preventScroll:true})});
-    p&&p.classList.add('open');back.hidden=false;
-    if(kind==='monitor')mail.setAttribute('tabindex','0');
-  }
-  function zoomOut(){
-    if(!zoomEl)return;const el=zoomEl;el.classList.remove('active');
-    document.querySelectorAll('.rpanel.open').forEach(p=>p.classList.remove('open'));
-    mail.setAttribute('tabindex','-1');
-    tween(baseVB(),()=>{});
-    delete room.dataset.zoom;back.hidden=true;zoomEl=null;hots.forEach(h=>h.tabIndex=0);
-    setTimeout(()=>{try{el.focus({preventScroll:true})}catch(e){}},RMo?0:60);
-  }
-  back.addEventListener('click',zoomOut);
-  addEventListener('keydown',e=>{if(e.key==='Escape'&&zoomEl)zoomOut()});
-  svg.addEventListener('click',e=>{if(zoomEl&&!e.target.closest('.hot.active,#rMail'))zoomOut()});
-  if('ResizeObserver' in window)new ResizeObserver(()=>{vb=zoomEl?targetVB(zoomEl,room.dataset.zoom):baseVB();setVB(vb)}).observe(room);
-  else addEventListener('resize',()=>{vb=zoomEl?targetVB(zoomEl,room.dataset.zoom):baseVB();setVB(vb)});
-
-  /* ---- hotspots ---- */
-  /* ---- darts: tap the board, a dart lands and a small +n pops. No score panel. ---- */
-  const board=document.getElementById('rDart'),dg=document.getElementById('rDarts'),dboard=board.querySelector('.dboard');
-  const SEC=[20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5],RB=36,FL=['#E5533D','#F6DB69','#6FB6FF','#7FD1A8'];
-  let flying=false;
-  const gauss=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
-  function scoreAt(x,y){const r=Math.hypot(x,y)/RB;if(r>1)return 0;if(r<=.05)return 50;if(r<=.11)return 25;
-    let a=Math.atan2(x,-y);if(a<0)a+=2*Math.PI;const n=SEC[Math.floor(((a+Math.PI/20)%(2*Math.PI))/(Math.PI/10))];
-    if(r>=.55&&r<=.63)return n*3;if(r>=.9)return n*2;return n}
-  function popScore(x,y,txt){const t=document.createElementNS(NS,'text');t.setAttribute('class','pts');t.setAttribute('x',x.toFixed(1));t.setAttribute('y',(y-8).toFixed(1));t.textContent=txt;dg.appendChild(t);setTimeout(()=>t.remove(),1400)}
-  function throwDart(){
-    if(flying||zoomEl)return;flying=true;
-    while(dg.querySelectorAll('.dart').length>=6)dg.querySelector('.dart').remove();
-    const bull=Math.random()<.14,sg=(bull?.16:.46)*RB,tx=gauss()*sg,ty=gauss()*sg,pts=scoreAt(tx,ty);
-    const d=document.createElementNS(NS,'g');d.setAttribute('class','dart');
-    d.innerHTML='<path d="M0 0L-12 9" stroke="#C9CFD8" stroke-width="1.6" stroke-linecap="round"/><path d="M-5 3.7L-13 9.6" stroke="#4B525E" stroke-width="3" stroke-linecap="round"/><path d="M-12 8.6L-21 4.2-23.4 12.8-16 15.6z" fill="'+FL[(Math.random()*4)|0]+'" stroke="#0B0E18" stroke-opacity=".5" stroke-width=".8"/>';
-    dg.appendChild(d);
-    const rot0=(Math.random()-.5)*26,S=[-190,130],D=RMo?0:430,t0=performance.now();
-    const put=(x,y,k,rot)=>d.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') rotate('+rot.toFixed(1)+') scale('+k.toFixed(3)+')');
-    function land(){
-      put(tx,ty,1,rot0);
-      if(!RMo){dboard.classList.remove('hit');void dboard.getBoundingClientRect();dboard.classList.add('hit');
-        const w0=performance.now();(function wob(now){const p=(now-w0)/320;if(p>=1){put(tx,ty,1,rot0);return}put(tx,ty,1,rot0+Math.sin(p*18)*5*(1-p));requestAnimationFrame(wob)})(w0)}
-      popScore(tx,ty,pts?'+'+pts:'Miss');flying=false;
-    }
-    if(!D){land();return}
-    (function step(now){const p=Math.min(1,(now-t0)/D),e=1-Math.pow(1-p,3);
-      put(S[0]+(tx-S[0])*e,S[1]+(ty-S[1])*e-34*Math.sin(Math.PI*p),1.9-.9*e,rot0+(1-e)*-12);
-      if(p<1)requestAnimationFrame(step);else land()})(t0);
-  }
-  function act(h){
-    if(h.dataset.panel){zoomTo(h,h.dataset.panel)}
-    else if(h.id==='rMonitor'){zoomTo(h,'monitor')}
-    else if(h.id==='rLamp'){const on=room.classList.toggle('lamp-on');h.setAttribute('aria-pressed',on);h.setAttribute('aria-label','Desk lamp. Press to switch it '+(on?'off':'on')+'.');say(on?'Lights on.':'Lights off.',1200)}
-    else if(h.id==='rDart'){throwDart()}
-  }
-  room.classList.add('lamp-on');
-  hots.forEach(h=>{
-    const bb=h.getBBox(),r=document.createElementNS(NS,'rect');
-    r.setAttribute('class','ring');r.setAttribute('x',bb.x-5);r.setAttribute('y',bb.y-5);r.setAttribute('width',bb.width+10);r.setAttribute('height',bb.height+10);r.setAttribute('rx',8);h.appendChild(r);
-    h.addEventListener('click',()=>act(h));
-    h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act(h)}});
-  });
-  svg.querySelectorAll('.plant').forEach(p=>{const sw=()=>{p.classList.remove('sway');void p.getBoundingClientRect();p.classList.add('sway')};p.addEventListener('mouseenter',sw);p.addEventListener('click',sw)});
-
+  function close(){if(room.dataset.zoom!=='catalogue')return;delete room.dataset.zoom;back.hidden=true;lastBro&&setTimeout(()=>{try{lastBro.focus({preventScroll:true})}catch(e){}},60)}
+  room.querySelectorAll('.cs-bro').forEach(b=>b.addEventListener('click',()=>openCat(b)));
+  back.addEventListener('click',close);
+  addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 })();
 ;
 (function(){var f=document.querySelector('.sfr iframe');if(!f)return;function send(){try{f.contentWindow.postMessage({vdTheme:document.documentElement.getAttribute('data-theme')},'*')}catch(e){}}new MutationObserver(send).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});f.addEventListener('load',send);addEventListener('message',function(e){if(e.data&&e.data.vdAsk)send()})})();

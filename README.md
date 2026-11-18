@@ -20,3 +20,6 @@ Any value set to `TODO` (or left empty) is **not shown** on the public page unti
 
 ## Sharing image
 `img/og.jpg` (1200 x 630) is used for link previews.
+
+## Contact scene
+Email, phone and social links are in `SITE.contact` and `SITE.links` at the top of `app.js`. The two brochures on the desk open the catalogue viewer.
