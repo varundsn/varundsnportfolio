@@ -634,14 +634,37 @@ $('#more').innerHTML=MORE.map(g=>`<div class="mg" style="--c:${g.c}"><h3 class="
   if(0)return `<a class="sb" href="${it.href}" aria-label="${esc(it.n)}: ${esc(it.lbl)}"><img src="img/socialbanner.webp" alt="" loading="lazy"><span class="sbt"><span class="sbk">SOCIAL MEDIA</span><span class="sbh">${esc(it.n)}</span><span class="sbd">${esc(it.d)}</span></span><span class="sbc">OPEN THE SOCIAL MEDIA PAGE <span aria-hidden="true">→</span></span></a>`;
   return it.href?`<a class="tile${it.img?'':' plain'}" href="${it.href}"${ext?' target="_blank" rel="noopener"':''} aria-label="${esc(it.n)}: ${esc(it.lbl)}">${inner}</a>`:`<div class="tile plain soon">${inner}</div>`}).join('')}</div></div>`).join('');
 
-/* ======================= TOOLBOX ======================= */
+/* ======================= TOOLBOX (3D artist box) ======================= */
 (function(){
-  const g=$('#tkg'),tn=$('#tnote');
-  g.innerHTML=SITE.toolkit.map(k=>{const ts=TOOLS.filter(t=>t.g===k.g);return ts.length?`<div class="grp"><h3>${esc(k.title)}</h3><div class="tools">${ts.map(t=>`<button type="button" class="tool" aria-pressed="false" data-n="${esc(t.n)}" data-t="${esc(t.t)}"><span class="ico">${icon(t.i)}</span>${esc(t.n)}</button>`).join('')}</div></div>`:''}).join('');
-  function pick(b){$$('.tool',g).forEach(x=>x.setAttribute('aria-pressed',x===b));tn.innerHTML=`<b>${esc(b.dataset.n)}</b><span>${esc(b.dataset.t)}</span>`}
-  g.addEventListener('click',e=>{const b=e.target.closest('.tool');if(b)pick(b)});
-  g.addEventListener('focusin',e=>{const b=e.target.closest('.tool');if(b)pick(b)});
-  if(matchMedia('(hover:hover)').matches)g.addEventListener('mouseover',e=>{const b=e.target.closest('.tool');if(b)pick(b)});
+  const x=$('#tkx'),bx=$('#bx'),spin=$('#spin'),out=$('#tkout'),hint=$('#tkhint');if(!x)return;
+  out.innerHTML=TOOLS.map(t=>`<li class="x-tkt"><span class="ico" aria-hidden="true">${icon(t.i)}</span><b>${esc(t.n)}</b><span>${esc(t.t)}</span></li>`).join('');
+  const items=$$('.x-tkt',out),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let ang=-24,state='idle',last=0,vis=false,run=false,from=0,t0=0,isOpen=false;
+  const to=-22,paint=()=>{spin.style.transform=`rotateX(-18deg) rotateY(${ang}deg)`};
+  const ease=p=>1-Math.pow(1-p,3);
+  function tick(t){
+    run=false;if(!vis||RM)return;const dt=Math.min(50,t-(last||t));last=t;
+    if(state==='idle'){ang+=dt*0.024}
+    else if(state==='settle'){const p=Math.min(1,(t-t0)/700);ang=from+(to-from)*ease(p);if(p>=1)state='open'}
+    paint();if(state!=='open')go()
+  }
+  function go(){if(!run&&vis&&!RM){run=true;requestAnimationFrame(tick)}}
+  new IntersectionObserver(e=>{vis=e[0].isIntersecting;last=0;if(vis)go()},{rootMargin:'100px'}).observe(bx);
+  paint();
+  function setOpen(v){
+    isOpen=v;bx.setAttribute('aria-expanded',v);hint.textContent=v?'Click the box to close it':'Click the box to open it';
+    if(v){
+      const b=bx.getBoundingClientRect(),cx=b.left+b.width/2,cy=b.top+b.height*.5;
+      items.forEach((it,i)=>{const r=it.getBoundingClientRect();it.style.setProperty('--dx',(cx-(r.left+r.width/2))+'px');it.style.setProperty('--dy',(cy-(r.top+r.height/2))+'px');it.style.setProperty('--r',((i%2?1:-1)*(14+(i*9)%32))+'deg');it.style.setProperty('--od',(.5+i*.06)+'s');it.style.setProperty('--cd',((items.length-i)*.02)+'s')});
+      from=((ang%360)+540)%360-180;ang=from;t0=performance.now();state=RM?'open':'settle';if(RM){ang=to;paint()}go();
+      requestAnimationFrame(()=>x.classList.add('open'));
+    }else{
+      x.classList.remove('open');
+      setTimeout(()=>{if(!isOpen){state='idle';last=0;go()}},900);
+    }
+  }
+  bx.addEventListener('click',()=>setOpen(!isOpen));
+  bx.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setOpen(!isOpen)}else if(e.key==='Escape'&&isOpen)setOpen(false)});
 })();
 
 /* ======================= PROCESS ======================= */
