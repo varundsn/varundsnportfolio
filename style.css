@@ -1655,7 +1655,7 @@ html.hf-pre:not(.hf-3) :is(.h2sub,.h2role){opacity:0}
 
 /* ===== Hero name: heavy, tight display type with a design-tool selection frame ===== */
 .hero .h2name{font-family:'Bricolage Grotesque','Antonio',Impact,sans-serif!important;font-weight:800!important;font-stretch:76%;text-transform:uppercase;letter-spacing:-.03em!important;line-height:.8!important;-webkit-text-stroke:0!important;font-variation-settings:'opsz' 96}
-.h2tag{display:none}
+.h2tag{display:none!important}
 @media(min-width:1001px){
  .h2name{--nf:9.8!important}
  .hero h1.h2t{position:relative!important;margin-top:calc(1.4*var(--u))!important;margin-bottom:calc(1.2*var(--u))!important}
