@@ -758,10 +758,15 @@ layout();
   const room=document.getElementById('room');if(!room)return;
   const RMo=matchMedia('(prefers-reduced-motion:reduce)').matches,back=document.getElementById('rBack');
   const C=SITE.contact;
-  const mail=document.getElementById('csMail'),tel=document.getElementById('csTel');
-  if(has(C.email)){mail.href='mailto:'+C.email+'?subject=Hello%20Varun';document.getElementById('csMailTxt').textContent=C.email}else mail.closest('li').hidden=true;
-  if(has(C.phone)&&has(C.phoneHref)){tel.href=C.phoneHref;document.getElementById('csTelTxt').textContent=C.phone}else tel.closest('li').hidden=true;
-  document.getElementById('csBe').href=LINKS.behance;document.getElementById('csLi').href=LINKS.linkedin;
+  const mailTxt=document.getElementById('csMailTxt'),telTxt=document.getElementById('csTelTxt');
+  const okM=has(C.email),okT=has(C.phone)&&has(C.phoneHref);
+  document.querySelectorAll('.cs-mail').forEach(a=>{if(okM)a.href='mailto:'+C.email+'?subject=Hello%20Varun';else a.hidden=true});
+  document.querySelectorAll('.cs-tel').forEach(a=>{if(okT)a.href=C.phoneHref;else a.hidden=true});
+  if(okM)mailTxt.textContent=C.email;if(okT)telTxt.textContent=C.phone;
+  document.querySelectorAll('.cs-be').forEach(a=>a.href=LINKS.behance);document.querySelectorAll('.cs-li').forEach(a=>a.href=LINKS.linkedin);
+  /* menu-bar clock shows the real time */
+  const mxc=document.getElementById('mxClock');
+  const mxt=()=>{if(mxc)mxc.textContent=new Date().toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).replace(',','')};mxt();setInterval(mxt,30000);
   /* wall clock shows the real time */
   const hh=document.getElementById('csHH'),hm=document.getElementById('csHM');
   const tick=()=>{const d=new Date(),m=d.getMinutes(),h=d.getHours()%12;hm.style.transform='rotate('+(m*6+d.getSeconds()*.1)+'deg)';hh.style.transform='rotate('+(h*30+m*.5)+'deg)'};tick();setInterval(tick,20000);
