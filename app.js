@@ -764,9 +764,17 @@ layout();
   document.querySelectorAll('.cs-tel').forEach(a=>{if(okT)a.href=C.phoneHref;else a.hidden=true});
   if(okM)mailTxt.textContent=C.email;if(okT)telTxt.textContent=C.phone;
   document.querySelectorAll('.cs-be').forEach(a=>a.href=LINKS.behance);document.querySelectorAll('.cs-li').forEach(a=>a.href=LINKS.linkedin);
-  /* menu-bar clock shows the real time */
-  const mxc=document.getElementById('mxClock');
-  const mxt=()=>{if(mxc)mxc.textContent=new Date().toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).replace(',','')};mxt();setInterval(mxt,30000);
+  /* live menu-bar clock, India time, rotating greeting, copy buttons */
+  const mxc=document.getElementById('mxClock'),ist=document.getElementById('mxIST');
+  const mxt=()=>{const d=new Date();if(mxc)mxc.textContent=d.toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).replace(',','');if(ist)ist.textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})};mxt();setInterval(mxt,15000);
+  const hi=document.getElementById('mxHi'),G=['Hello','नमस्कार','Hola','Bonjour','Ciao','こんにちは','Hallo','Olá'];let gi=0;
+  if(hi&&!RMo)setInterval(()=>{if(!room.classList.contains('live'))return;gi=(gi+1)%G.length;hi.style.animation='none';hi.offsetWidth;hi.textContent=G[gi];hi.style.animation=''},2400);
+  const toast=document.getElementById('mxToast');let tt;
+  room.querySelectorAll('.mx-cp').forEach(b=>b.addEventListener('click',async()=>{
+    const v=b.dataset.k==='tel'?C.phone:C.email;
+    try{await navigator.clipboard.writeText(v)}catch(e){const t=document.createElement('textarea');t.value=v;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(_){}t.remove()}
+    toast.textContent=(b.dataset.k==='tel'?'Number':'Email')+' copied';toast.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('on'),1800);
+  }));
   /* wall clock shows the real time */
   const hh=document.getElementById('csHH'),hm=document.getElementById('csHM');
   const tick=()=>{const d=new Date(),m=d.getMinutes(),h=d.getHours()%12;hm.style.transform='rotate('+(m*6+d.getSeconds()*.1)+'deg)';hh.style.transform='rotate('+(h*30+m*.5)+'deg)'};tick();setInterval(tick,20000);
