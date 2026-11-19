@@ -1827,36 +1827,35 @@ html[data-theme=light] .mx-wall{background:linear-gradient(160deg,#3b36c9,#8a3fd
 }
 @media (prefers-reduced-motion:reduce){.mx-wall i,.mx-ic::before,.mx-ph .mx-ic img,.mx-stat i{animation:none}.mx-app,.mx-big{transition:none}.mx-app:hover,.mx-big:hover{transform:none}}
 
-/* ===== richer workspace scene (desk mat, typing hands, phone, notes, sunbeams) ===== */
-.cs-beam polygon{fill:#FFF3C4;opacity:.16;animation:csBeam 9s ease-in-out infinite alternate}.cs-beam .b2{opacity:.12;animation-duration:13s;animation-delay:-5s}
-html[data-theme=dark] .cs-beam polygon{fill:#9FB4FF;opacity:.07}
-@keyframes csBeam{from{opacity:.07}to{opacity:.2}}
-.cs-notes .nt{transform-box:fill-box;transform-origin:50% 0;animation:csFlap 5s ease-in-out infinite alternate}
-.cs-notes .n2{animation-duration:6.5s;animation-delay:-2s}.cs-notes .n3{animation-duration:7.5s;animation-delay:-4s}
+
+/* ===== flat-vector workspace look (warm browns, orange wood, doodles) ===== */
+.room.cs{--wall:#4A372F;--wall2:#3A2B25;--shelf:#C0672E;--shelfd:#7C3A18;--b1:#E4574A;--b2:#4AA3A0;--b3:#F2B33D;--pot:#D9733F;--leaf:#4DA878;--leaf2:#33855A;--cord:#1A110E;--shade:#E4784A;--bulb:#FFE3A0;--clockface:#F7EFDD;--hand:#2A1B16;--desk:#E48B3C;--desk2:#C4691F;--lip:#8F4A1B;--mug:#FBF4E6;--cup:#2E2B36;--shaft:#8A6552;--paper:#FFF3DA;--pf:#F7EFDD;--pp:#3B2A24;--cs-glow:.9}
+:root[data-theme="light"] .room.cs{--wall:#A47F6B;--wall2:#8C6A58;--shaft:#E3C3A8;--shelf:#CE7436;--desk:#F0A054;--desk2:#D87E2E;--lip:#A85A22;--cs-glow:.35;--pf:#FFF7E6;--pp:#F7EFDD}
+.room.cs .c-wall{fill:var(--wall)}.room.cs .c-wall2{fill:var(--wall2)}
+.k-shaft polygon{fill:var(--shaft);opacity:.34;animation:kShaft 10s ease-in-out infinite alternate}.k-shaft .s2{opacity:.3;animation-duration:14s;animation-delay:-5s}
+@keyframes kShaft{from{opacity:.22}to{opacity:.42}}
+.k-shl{fill:var(--shelfd)}
+.kb1{fill:#F4E9D2}.kb2{fill:var(--b2)}.kb3{fill:var(--b3)}.kb4{fill:var(--b1)}
+.k-pg{fill:none;stroke:rgba(60,35,20,.28);stroke-width:2;stroke-linecap:round}
+.k-cup{fill:var(--cup)}.kp1{fill:#F2B33D}.kp2{fill:#E4574A}.kp3{fill:#4AA3A0}
+.k-spk{fill:#F4E9D2}.k-wf{fill:#3A3340}.k-tw{fill:#3A3340}
+.k-shelfL .k-spkg{animation:kPulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes kPulse{50%{transform:scale(1.025)}}
+.k-doodles{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+.k-doodles .dd{stroke-dasharray:90;animation:kDraw 5s ease-in-out infinite alternate}.k-doodles .d2{stroke-dasharray:70;animation-duration:4s;animation-delay:-1.5s}.k-doodles .d3{stroke-dasharray:60;animation-duration:3.2s;animation-delay:-.8s}
+@keyframes kDraw{from{stroke-dashoffset:90}to{stroke-dashoffset:0}}
+.cs-notes .nt rect:first-child{fill:#FFE27A}.cs-notes .n2 rect:first-child{fill:#FF9EC4}
+.cs-notesL .n1 rect:first-child{fill:#FFE27A}.cs-notesL .n2 rect:first-child{fill:#FF9EC4}
+.cs-notes path{fill:none;stroke:rgba(60,30,20,.55);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.cs-notes .nt{transform-box:fill-box;transform-origin:50% 0;animation:csFlap 5s ease-in-out infinite alternate}.cs-notes .n2{animation-duration:6.5s;animation-delay:-2s}.cs-notes .n3{animation-duration:7.5s;animation-delay:-4s}
 @keyframes csFlap{to{rotate:2.4deg}}
-.cs-notes rect:first-child{fill:#FFE27A}.cs-notes .n2 rect:first-child{fill:#FF9EC4}.cs-notes .n3 rect:first-child{fill:#8FE3C3}
-.cs-notes path{fill:none;stroke:rgba(40,30,20,.45);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .cs-notes .tp{fill:rgba(255,255,255,.55)!important}
-.cs-grain{position:absolute;inset:12px 0 0;background:repeating-linear-gradient(90deg,transparent 0 118px,rgba(0,0,0,.09) 118px 120px),repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 2px,transparent 2px 9px);pointer-events:none}
-.cs-mat{position:absolute;left:50%;top:10%;width:min(52%,660px);height:74%;transform:translateX(-50%);border-radius:14px;background:linear-gradient(#2c2a44,#1f1d33);box-shadow:0 8px 18px rgba(0,0,0,.35),inset 0 0 0 2px rgba(255,255,255,.06)}
-.cs-kb{z-index:1}.cs-ms{z-index:1}
-.cs-kb::after{content:"";position:absolute;top:18%;left:6%;width:7%;height:26%;border-radius:3px;background:#C6F432;box-shadow:0 0 14px #C6F432;opacity:.0;animation:csKey 3.2s steps(1) infinite}
-@keyframes csKey{0%{left:6%;top:18%;opacity:.8}8%{left:30%;top:46%;opacity:.8}16%{left:52%;top:18%;opacity:.8}24%{left:18%;top:70%;opacity:.8}32%{left:70%;top:46%;opacity:.8}40%{left:42%;top:70%;opacity:.8}48%{left:84%;top:18%;opacity:.8}56%{left:10%;top:46%;opacity:.8}64%{left:60%;top:70%;opacity:.8}72%{left:34%;top:18%;opacity:.8}80%{left:76%;top:70%;opacity:.8}90%{left:22%;top:46%;opacity:.8}100%{opacity:0}}
-.cs-hands{position:absolute;z-index:5;left:50%;bottom:0;width:min(50%,660px);transform:translateX(-50%);height:auto;pointer-events:none;overflow:visible;filter:drop-shadow(0 8px 10px rgba(0,0,0,.35))}
-.hd .sk{fill:#E9A57B;stroke:#C98558;stroke-width:1.6}.hd .na{fill:#F6CDB0}.hd .sl{fill:#2F2B6B}.hd .cuff{fill:#C6F432}.hd .ln{fill:none;stroke:#C98558;stroke-width:1.6;stroke-linecap:round;opacity:.7}
-.hd .fg{transform-box:fill-box;transform-origin:50% 100%;animation:csTy 1.05s ease-in-out infinite}
-.hd.hr .fg{animation-duration:1.3s}.hd .th{animation-duration:2.4s}
-@keyframes csTy{0%,55%,100%{transform:translateY(0) scaleY(1)}70%{transform:translateY(7px) scaleY(.94)}}
-.hd.hl{animation:csHb 2.2s ease-in-out infinite alternate}.hd.hr{animation:csHb 2.8s ease-in-out infinite alternate-reverse}
-@keyframes csHb{to{transform:translateY(3px)}}
-.cs-phone{position:absolute;z-index:4;left:calc(50% - min(32%,400px)/2 - 150px);bottom:calc(var(--dh) - 46px);width:66px;transform:rotate(-5deg);pointer-events:none}
-.ph-st{position:absolute;left:-6px;right:-6px;bottom:-10px;height:12px;border-radius:6px;background:#3b3752;box-shadow:0 6px 8px rgba(0,0,0,.35)}
-.ph-b{position:relative;aspect-ratio:9/18;border-radius:13px;background:#14121f;padding:3px;box-shadow:0 0 0 1.5px #3d3a55 inset,0 10px 16px rgba(0,0,0,.4)}
-.ph-s{height:100%;border-radius:10px;background:linear-gradient(160deg,#4a3cc9,#c0408b 70%,#ff9a5a);color:#fff;display:flex;flex-direction:column;align-items:center;padding:12px 2px 0;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif}
-.ph-t{font-size:15px;font-weight:700;line-height:1;letter-spacing:-.02em}.ph-d{font-size:6.2px;font-weight:600;opacity:.9;margin-top:3px}
-.ph-a{margin-top:auto;margin-bottom:6px;display:flex;gap:4px}.ph-a img{width:15px;height:15px;border-radius:4px}.ph-a img:first-child{animation:csRing 3.6s ease-in-out infinite}
-.ph-s{animation:csPhG 3.6s ease-in-out infinite}
-@keyframes csRing{0%,60%,100%{transform:rotate(0)}66%{transform:rotate(-16deg)}72%{transform:rotate(14deg)}78%{transform:rotate(-10deg)}84%{transform:rotate(0)}}
-@keyframes csPhG{0%,60%,100%{filter:brightness(1)}72%{filter:brightness(1.25)}}
-@media (max-width:860px){.cs-hands,.cs-phone,.cs-mat,.cs-notes,.cs-beam{display:none}.cs-grain{display:none}}
-@media (prefers-reduced-motion:reduce){.hd .fg,.hd.hl,.hd.hr,.cs-kb::after,.ph-a img,.ph-s{animation:none}}
+.cs-desk{background:linear-gradient(100deg,transparent 28%,rgba(255,255,255,.1) 28% 44%,transparent 44%),repeating-linear-gradient(0deg,transparent 0 44px,rgba(70,28,4,.32) 44px 47px),linear-gradient(var(--desk),var(--desk2));box-shadow:0 -16px 34px rgba(0,0,0,.32)}
+.cs-grain{display:block;position:absolute;inset:12px 0 0;background:repeating-linear-gradient(90deg,transparent 0 160px,rgba(70,28,4,.2) 160px 162px),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 2px,transparent 2px 11px);pointer-events:none}
+.cs-kb{background:repeating-linear-gradient(90deg,rgba(0,0,0,.45) 0 3px,transparent 3px 22px),repeating-linear-gradient(0deg,rgba(0,0,0,.45) 0 3px,transparent 3px 24px),#3A3844;box-shadow:0 8px 0 #1E1D25,0 16px 20px rgba(60,20,0,.4)}
+.cs-ms{background:#3A3844;box-shadow:0 5px 0 #1E1D25,0 12px 14px rgba(60,20,0,.4)}
+.cs-kb::after{content:"";position:absolute;top:18%;left:6%;width:7%;height:26%;border-radius:3px;background:#F2B33D;box-shadow:0 0 12px #F2B33D;opacity:0;animation:csKey 3.2s steps(1) infinite}
+@keyframes csKey{0%{left:6%;top:18%;opacity:.9}10%{left:30%;top:46%}20%{left:52%;top:18%}30%{left:18%;top:70%}40%{left:70%;top:46%}50%{left:42%;top:70%}60%{left:84%;top:18%}70%{left:10%;top:46%}80%{left:60%;top:70%}90%{left:34%;top:18%}100%{opacity:0}}
+.room.cs .cs-bez{background:#1B1A21;box-shadow:0 0 0 2px #35323F inset,0 24px 50px rgba(30,10,0,.55)}
+@media (max-width:860px){.k-shelfL,.cs-notesL{display:none}}
+@media (prefers-reduced-motion:reduce){.k-shaft polygon,.k-doodles .dd,.k-spkg,.cs-kb::after,.cs-notes .nt{animation:none}.k-doodles .dd{stroke-dashoffset:0}}
