@@ -1770,10 +1770,10 @@ html[data-theme=light] .mx-wall{background:linear-gradient(160deg,#3b36c9,#8a3fd
 .mx-sys{margin-left:auto;display:flex;align-items:center;gap:1.1cqw;font-style:normal}
 .mx-main{position:absolute;inset:3.4cqw 0 11cqw;display:flex;flex-direction:column;justify-content:center;gap:2cqw;padding:0 5cqw;z-index:1}
 .mx-hello{display:flex;align-items:flex-end;justify-content:space-between;gap:2cqw}
-.mx-hi{margin:0;font:700 7.2cqw/1 var(--fd,system-ui);letter-spacing:-.01em;height:1.05em;overflow:hidden;position:relative;min-width:30cqw;text-transform:none}
+.mx-hi{margin:0;font:700 7.2cqw/1 var(--fd,system-ui);letter-spacing:-.01em;height:1.2em;overflow:hidden;position:relative;min-width:30cqw;text-transform:none}
 .mx-hi span{display:block;animation:mxIn .5s cubic-bezier(.2,.8,.3,1) both}
 @keyframes mxIn{from{transform:translateY(60%);opacity:0}}
-.mx-hello p{margin:0 0 .8cqw;font-size:max(10px,1.7cqw);font-weight:500;opacity:.92;max-width:26cqw;text-align:right;line-height:1.35}
+.mx-hello p{margin:0 0 .8cqw;font-size:max(10px,1.7cqw);font-weight:500;opacity:.92;max-width:34cqw;text-align:right;line-height:1.35}
 .mx-cards{display:grid;gap:1.8cqw}
 .mx-big{position:relative;display:flex;align-items:center;border-radius:2.2cqw;background:rgba(14,10,40,.46);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);transition:transform .25s cubic-bezier(.3,1.3,.5,1),box-shadow .25s}
 .mx-big:hover{transform:translateY(-3px) scale(1.012)}

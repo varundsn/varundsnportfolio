@@ -767,8 +767,17 @@ layout();
   /* live menu-bar clock, India time, rotating greeting, copy buttons */
   const mxc=document.getElementById('mxClock'),ist=document.getElementById('mxIST');
   const mxt=()=>{const d=new Date();if(mxc)mxc.textContent=d.toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).replace(',','');if(ist)ist.textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})};mxt();setInterval(mxt,15000);
-  const hi=document.getElementById('mxHi'),G=['Hello','नमस्कार','Hola','Bonjour','Ciao','こんにちは','Hallo','Olá'];let gi=0;
-  if(hi&&!RMo)setInterval(()=>{if(!room.classList.contains('live'))return;gi=(gi+1)%G.length;hi.style.animation='none';hi.offsetWidth;hi.textContent=G[gi];hi.style.animation=''},2400);
+  const hi=document.getElementById('mxHi'),hp=document.querySelector('.mx-hello p');let gi=0;
+  const GREET=[
+    {h:[5,12],t:['Good morning','Rise and shine','Hello, early bird'],p:'Got an idea for today? Let\u2019s talk.'},
+    {h:[12,17],t:['Good afternoon','Hello there','Hope you\u2019re well'],p:'Got an idea or a project in mind? Let\u2019s talk.'},
+    {h:[17,21],t:['Good evening','Hello, friend','Hey, evening!'],p:'Got an idea or a project in mind? Let\u2019s talk.'},
+    {h:[21,29],t:['Hello, night owl','Good night','Still up?'],p:'Late-night ideas welcome. Let\u2019s talk.'}
+  ];
+  const period=()=>{let h=new Date().getHours();if(h<5)h+=24;return GREET.find(g=>h>=g.h[0]&&h<g.h[1])||GREET[1]};
+  const setG=(anim)=>{const g=period();const txt=g.t[gi%g.t.length];if(!hi)return;if(anim){hi.style.animation='none';hi.offsetWidth;hi.style.animation=''}hi.textContent=txt;hi.parentNode.setAttribute('aria-label',g.t[0]);if(hp)hp.textContent=g.p};
+  setG(false);
+  if(hi&&!RMo)setInterval(()=>{if(!room.classList.contains('live'))return;gi++;setG(true)},2600);
   const toast=document.getElementById('mxToast');let tt;
   room.querySelectorAll('.mx-cp').forEach(b=>b.addEventListener('click',async()=>{
     const v=b.dataset.k==='tel'?C.phone:C.email;
