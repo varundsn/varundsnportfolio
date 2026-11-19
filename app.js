@@ -767,6 +767,8 @@ layout();
   /* live menu-bar clock, India time, rotating greeting, copy buttons */
   const mxc=document.getElementById('mxClock'),ist=document.getElementById('mxIST');
   const mxt=()=>{const d=new Date();if(mxc)mxc.textContent=d.toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).replace(',','');if(ist)ist.textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})};mxt();setInterval(mxt,15000);
+  const pt=document.getElementById('csPhT'),pd=document.getElementById('csPhD');
+  const pht=()=>{const d=new Date();if(pt)pt.textContent=d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:false});if(pd)pd.textContent=d.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'})};pht();setInterval(pht,15000);
   const hi=document.getElementById('mxHi'),G=['Hello','नमस्कार','Hola','Bonjour','Ciao','こんにちは','Hallo','Olá'];let gi=0;
   if(hi&&!RMo)setInterval(()=>{if(!room.classList.contains('live'))return;gi=(gi+1)%G.length;hi.style.animation='none';hi.offsetWidth;hi.textContent=G[gi];hi.style.animation=''},2400);
   const toast=document.getElementById('mxToast');let tt;
