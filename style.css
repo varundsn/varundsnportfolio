@@ -1899,3 +1899,13 @@ html[data-theme=light] .mx-wall{background:linear-gradient(160deg,#3b36c9,#8a3fd
 @media(prefers-reduced-motion:reduce){.tc-out,.tc-grid,.tc-it,.tc-lid,.tc-rot,.tc-light,.tc-fl::after,.tc-ic,.tc-tip,.tc-cta svg{transition:none!important}}
 .tc-ic.full{box-shadow:0 0 0 1px rgba(255,255,255,.16),0 8px 18px -6px rgba(10,20,50,.4)}
 :root[data-theme="light"] .tc-ic.full{box-shadow:0 8px 18px -6px rgba(10,20,50,.4)}
+
+/* ===== headings: heavy tight grotesque (replaces tall condensed display) ===== */
+@font-face{font-family:'Inter Tight';font-weight:100 900;font-style:normal;font-display:swap;src:url(fonts/intertight-var.woff2) format('woff2')}
+:root{--fd:'Inter Tight','Google Sans',system-ui,sans-serif}
+h2.big,.contact h2,.jhead h2{font-weight:800!important;text-transform:none!important;letter-spacing:-.045em!important;line-height:.98!important;font-size:clamp(2.3rem,5.6vw,5.2rem)!important}
+.hero h1.h2t{font-weight:800!important}
+.hero .h2name,.h2name{font-family:var(--fd)!important;font-weight:800!important;font-stretch:100%;text-transform:none!important;letter-spacing:-.055em!important;line-height:.92!important;font-variation-settings:normal}
+.hf-lc b,.proofl b{font-weight:800;letter-spacing:-.04em}
+.mx-hi{font-weight:800;letter-spacing:-.04em}
+.tc-plate{font-weight:800;letter-spacing:.18em}
