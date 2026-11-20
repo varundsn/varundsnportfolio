@@ -639,7 +639,7 @@ $('#more').innerHTML=MORE.map(g=>`<div class="mg" style="--c:${g.c}"><h3 class="
 (function(){
   const root=$('#tc'),grid=$('#tcGrid'),cta=$('#tcCta'),ctaT=$('#tcCtaT'),cs=$('#tcCase'),out=$('#tcOut'),stage=$('#tcStage');if(!root)return;
   const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  grid.innerHTML=TOOLS.map((t,i)=>`<li class="tc-it"><button type="button" class="tc-b" data-i="${i}" aria-describedby="tcTip"><span class="tc-ic${t.full?' full':''}"><img src="img/tools/${t.f}.svg" alt="" width="64" height="64" loading="lazy" decoding="async"></span><span class="tc-n">${esc(t.n)}</span></button></li>`).join('');
+  grid.innerHTML=TOOLS.map((t,i)=>`<li class="tc-it"><button type="button" class="tc-b" data-i="${i}" aria-describedby="tcTip"><span class="tc-ic full"><img src="img/tools/${t.f}.svg" alt="" width="64" height="64" loading="lazy" decoding="async"></span><span class="tc-n">${esc(t.n)}</span></button></li>`).join('');
   const items=$$('.tc-it',grid),btns=$$('.tc-b',grid);
   let isOpen=false,timer=0;
   function setOpen(v){
@@ -671,7 +671,7 @@ $('#more').innerHTML=MORE.map(g=>`<div class="mg" style="--c:${g.c}"><h3 class="
   }
   function showTip(b){
     const t=TOOLS[+b.dataset.i];clearTimeout(hideT);
-    tI.src='img/tools/'+t.f+'.svg';tN.textContent=t.n;tC.textContent=t.c;tI.parentNode.classList.toggle('full',!!t.full);tD.textContent=t.d;
+    tI.src='img/tools/'+t.f+'.svg';tN.textContent=t.n;tC.textContent=t.c;tI.parentNode.classList.add('full');tD.textContent=t.d;
     tip.hidden=false;tip.style.position='fixed';tipOn=b;place(b);
     requestAnimationFrame(()=>tip.classList.add('on'));
     btns.forEach(x=>x.classList.toggle('act',x===b));
