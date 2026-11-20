@@ -69,18 +69,19 @@ const SITE={
  toolkit:[
   {g:'ux',title:'Product and UX'},{g:'vis',title:'Visual design'},{g:'mo',title:'Motion and editing'},{g:'ai',title:'AI-assisted research and exploration'}],
  tools:[
-  {n:'Photoshop',f:'photoshop',full:1,c:'Visual design',d:'Creating social media creatives, image manipulation, photo editing and detailed visual compositions.'},
-  {n:'Figma',f:'figma',c:'UI & UX design',d:'Designing user interfaces, website layouts, wireframes and interactive prototypes.'},
-  {n:'Framer',f:'framer',c:'Web & prototyping',d:'Turning designs into interactive prototypes and live websites without leaving the canvas.'},
-  {n:'ChatGPT',f:'chatgpt',c:'Think',d:'Brainstorming, quick research and rewriting copy. My second brain for first drafts.'},
-  {n:'Claude',f:'claude',c:'AI assistance',d:'Exploring creative directions, refining ideas, writing content and assisting with design workflows.'},
-  {n:'Gemini',f:'gemini',c:'Research',d:'Supporting research and visual exploration when I am mapping a problem or hunting for new directions.'},
-  {n:'Google AI Studio',f:'aistudio',c:'AI experiments',d:'Testing prompts and prototyping small experiments with AI models.'},
-  {n:'Antigravity',f:'antigravity',c:'AI building',d:'AI-assisted building and prototyping, taking an idea to something working faster.'},
-  {n:'Illustrator',f:'illustrator',full:1,c:'Vector design',d:'Creating logos, vector illustrations, brand assets and scalable graphic elements.'},
-  {n:'Canva',f:'canva',c:'Quick creatives',d:'Putting together quick social and campaign creatives when speed matters.'},
-  {n:'CorelDRAW',f:'coreldraw',c:'Print & vector',d:'Vector illustration and print layouts, from artwork to the final page.'},
-  {n:'CapCut',f:'capcut',c:'Video & motion',d:'Cutting short-form video and motion edits for social content.'}
+  {n:'Photoshop',f:'photoshop',full:1,c:'Visual design',d:'My go-to for social creatives, photo edits and mockups when an image needs real polish.'},
+  {n:'Illustrator',f:'illustrator',full:1,c:'Vector design',d:'Where I draw logos, vector illustrations and brand assets that stay sharp at any size.'},
+  {n:'Figma',f:'figma',c:'UI & UX design',d:'Where I design interfaces, map user flows, wireframe and prototype before anything gets built.'},
+  {n:'Framer',f:'framer',c:'Prototypes & web',d:'I use it to turn my designs into interactive prototypes and live websites I can share.'},
+  {n:'Canva',f:'canva',c:'Quick creatives',d:'When speed matters, I put together social and campaign creatives here.'},
+  {n:'CorelDRAW',f:'coreldraw',c:'Print & vector',d:'My pick for vector illustration and print layouts, from the artwork to the final page.'},
+  {n:'CapCut',f:'capcut',c:'Video & motion',d:'Where I cut short-form videos and motion edits for social content.'},
+  {n:'ChatGPT',f:'chatgpt',c:'Think',d:'My second brain for first drafts: brainstorming, quick research and rewriting my own copy.'},
+  {n:'Claude',f:'claude',c:'AI assistance',d:'I lean on it to untangle messy problems, shape ideas and refine content and workflows.'},
+  {n:'Gemini',f:'gemini',c:'Research',d:'I reach for it when I need research support and a quick way to explore visual directions.'},
+  {n:'Google AI Studio',f:'aistudio',c:'AI experiments',d:'My sandbox for testing prompts and trying small AI prototypes before I commit to an idea.'},
+  {n:'Antigravity',f:'antigravity',c:'AI building',d:'I use it to build and prototype with AI, taking an idea to something working faster.'},
+  {n:'Vercel',f:'vercel',c:'Launch & hosting',d:'Where this portfolio lives. I deploy my sites here and share them with a single link.'}
  ],
  /* Testimonials. All entries with a quote are shown; when name is empty the company is used as the byline.
     Add name and role to show the person instead.

@@ -1813,15 +1813,15 @@ html[data-theme=light] .mx-wall{background:linear-gradient(160deg,#3b36c9,#8a3fd
 .tc.open .tc-out{grid-template-rows:1fr}
 .tc-outi{min-height:0;overflow:hidden;width:100%}
 .tc-out.done .tc-outi{overflow:visible}
-.tc-grid{position:relative;list-style:none;margin:0 auto;padding:10px 0 26px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(18px,2.6vw,30px) clamp(10px,2vw,26px);max-width:900px;visibility:hidden;transition:visibility 0s .9s}
+.tc-grid{--g:clamp(10px,1.8vw,22px);position:relative;list-style:none;margin:0 auto;padding:10px 0 26px;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(18px,2.4vw,28px) var(--g);max-width:900px;visibility:hidden;transition:visibility 0s .9s}
 .tc.open .tc-grid{visibility:visible;transition:none}
-.tc-it{display:grid;justify-items:center;opacity:0;transform:translateY(var(--dy,200px)) scale(.45);transition:transform .35s cubic-bezier(.5,0,.8,.4) var(--cd,0s),opacity .25s var(--cd,0s)}
+.tc-it{flex:0 0 calc((100% - 6*var(--g))/7);min-width:0;display:grid;justify-items:center;opacity:0;transform:translateY(var(--dy,200px)) scale(.45);transition:transform .35s cubic-bezier(.5,0,.8,.4) var(--cd,0s),opacity .25s var(--cd,0s)}
 .tc.open .tc-it{opacity:1;transform:none;transition:transform .75s cubic-bezier(.2,.8,.25,1) var(--d,0s),opacity .4s ease-out var(--d,0s)}
 .tc-b{display:grid;justify-items:center;gap:12px;padding:6px 4px;background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;border-radius:16px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .tc-b:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-.tc-ic{display:grid;place-items:center;width:var(--is,68px);height:var(--is,68px);border-radius:22.5%;background:#fff;box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(20,30,60,.08),0 8px 18px -6px rgba(10,20,50,.3);transition:transform .25s cubic-bezier(.2,.8,.3,1),box-shadow .25s}
+.tc-ic{display:grid;place-items:center;position:relative;flex:none;width:var(--is,56px);height:var(--is,56px);border-radius:22.5%;background:#fff;box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(20,30,60,.08),0 8px 18px -6px rgba(10,20,50,.3);transition:transform .25s cubic-bezier(.2,.8,.3,1),box-shadow .25s}
 .tc-ic img{display:block;width:58%;height:58%;object-fit:contain}
-.tc-ic.full{background:none;box-shadow:0 8px 18px -6px rgba(10,20,50,.4)}.tc-ic.full img{width:100%;height:100%}
+.tc-ic.full{background:none;box-shadow:0 8px 18px -6px rgba(10,20,50,.4)}.tc-ic.full img{position:absolute;inset:0;width:100%;height:100%}
 .tc-n{font:600 13.5px/1.25 var(--sans);text-align:center;letter-spacing:.005em;max-width:9em}
 .tc-b:hover .tc-ic,.tc-b.act .tc-ic{transform:translateY(-5px) scale(1.04);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(20,30,60,.1),0 16px 26px -8px rgba(10,20,50,.42)}
 .tc-ic.full{--x:0}
@@ -1858,7 +1858,7 @@ html[data-theme=light] .mx-wall{background:linear-gradient(160deg,#3b36c9,#8a3fd
 .tc-ifr{width:calc(var(--W) - 12px);height:calc(var(--H) - 6px);margin:calc(var(--H)/-2) 0 0 calc((var(--W) - 12px)/-2);transform:rotateY(180deg) translateZ(calc(var(--D)/-2 + 6px));background:var(--inn)}
 .tc-il{width:calc(var(--D) - 12px);height:calc(var(--H) - 6px);margin:calc(var(--H)/-2) 0 0 calc((var(--D) - 12px)/-2);transform:rotateY(90deg) translateZ(calc(var(--W)/-2 + 6px));background:linear-gradient(90deg,#141A2E,#222A44)}
 .tc-ir{width:calc(var(--D) - 12px);height:calc(var(--H) - 6px);margin:calc(var(--H)/-2) 0 0 calc((var(--D) - 12px)/-2);transform:rotateY(-90deg) translateZ(calc(var(--W)/-2 + 6px));background:linear-gradient(90deg,#222A44,#141A2E)}
-.tc-fl{width:calc(var(--W) - 12px);height:calc(var(--D) - 12px);margin:calc((var(--D) - 12px)/-2) 0 0 calc((var(--W) - 12px)/-2);transform:rotateX(90deg) translateZ(calc(var(--H)/-2 + 6px));background:#2C3558;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,1fr);gap:calc(7px*var(--k));padding:calc(9px*var(--k));box-sizing:border-box;overflow:hidden}
+.tc-fl{width:calc(var(--W) - 12px);height:calc(var(--D) - 12px);margin:calc((var(--D) - 12px)/-2) 0 0 calc((var(--W) - 12px)/-2);transform:rotateX(90deg) translateZ(calc(var(--H)/-2 + 6px));background:#2C3558;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(2,1fr);gap:calc(6px*var(--k));padding:calc(9px*var(--k));box-sizing:border-box;overflow:hidden}
 .tc-fl b{border-radius:calc(7px*var(--k));background:linear-gradient(#070A15,#10162A);box-shadow:inset 0 3px 6px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.14)}
 .tc-fl::after{content:"";position:absolute;inset:0;background:radial-gradient(closest-side at 50% 50%,rgba(255,224,160,.0),transparent);opacity:0;transition:opacity .9s ease .25s}
 .tc.open .tc-fl::after{opacity:1;background:radial-gradient(closest-side at 50% 50%,rgba(255,226,170,.5),rgba(255,226,170,.1) 70%,transparent)}
@@ -1893,9 +1893,9 @@ html[data-theme=light] .mx-wall{background:linear-gradient(160deg,#3b36c9,#8a3fd
 .tc-tip-h b{display:block;font:700 17px/1.2 var(--sans);letter-spacing:-.005em}
 .tc-tip-h small{display:block;margin-top:3px;font:600 10.5px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#6A7288}
 .tc-tip p{margin:12px 0 0;font:400 14px/1.6 var(--sans);color:#2A3652;max-width:none}
-@media(max-width:900px){.tc-grid{grid-template-columns:repeat(4,minmax(0,1fr));max-width:600px}.tc{--is:62px}}
-@media(max-width:560px){.tc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tc{--is:58px}.tc-stage,.tc-case,.tc-floor,.tc-light,.tc-scn{--k:.76}.tc-n{font-size:12.5px}}
-@media(max-width:340px){.tc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.tc-grid{max-width:560px}.tc-it{flex-basis:calc((100% - 3*var(--g))/4)}.tc{--is:52px}}
+@media(max-width:560px){.tc-it{flex-basis:calc((100% - 2*var(--g))/3)}.tc{--is:50px}.tc-stage,.tc-case,.tc-floor,.tc-light,.tc-scn{--k:.76}.tc-n{font-size:12.5px}}
+@media(max-width:340px){.tc-it{flex-basis:calc((100% - var(--g))/2)}}
 @media(prefers-reduced-motion:reduce){.tc-out,.tc-grid,.tc-it,.tc-lid,.tc-rot,.tc-light,.tc-fl::after,.tc-ic,.tc-tip,.tc-cta svg{transition:none!important}}
 .tc-ic.full{box-shadow:0 0 0 1px rgba(255,255,255,.16),0 8px 18px -6px rgba(10,20,50,.4)}
 :root[data-theme="light"] .tc-ic.full{box-shadow:0 8px 18px -6px rgba(10,20,50,.4)}
