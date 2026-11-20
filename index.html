@@ -148,31 +148,41 @@
 </section>
 
 <!-- 05 TOOLKIT -->
-<section id="toolkit" class="toolkit gp" data-sec="toolkit">
+<section id="toolkit" class="toolkit gp" data-sec="toolkit" aria-labelledby="tcH">
   <div class="wrap">
     <i class="wp" data-wp="0.97" style="position:absolute;left:0;top:90px"></i>
-    <h2 class="big">Toolkit.</h2>
-    <p class="sub">Everything I design with, packed in one box.</p>
-    <div class="tkx" id="tkx">
-      <div class="tkb">
-        <div class="x-bx" id="bx" role="button" tabindex="0" aria-expanded="false" aria-controls="tkout" aria-label="Toolkit box. Press to open it and see the tools I use.">
-          <span class="x-shd" aria-hidden="true"></span>
-          <div class="x-scn" aria-hidden="true"><div class="x-spin" id="spin">
-            <i class="x-fc x-bf x-wood"><u class="x-plate">TOOLKIT</u><u class="x-dot x-d1"></u><u class="x-dot x-d2"></u><u class="x-dot x-d3"></u><u class="x-dot x-d4"></u><u class="x-lk"></u></i>
-            <i class="x-fc x-bk x-wood"></i><i class="x-fc x-bl x-wood"></i><i class="x-fc x-br x-wood"></i><i class="x-fc x-bb"></i>
-            <i class="x-fc x-rm"></i>
-            <i class="x-fc x-ib"></i><i class="x-fc x-il"></i><i class="x-fc x-ir"></i><i class="x-fc x-iff"></i><i class="x-fc x-ifr"></i>
-            <div class="x-lid" id="lid">
-              <i class="x-fc x-lt x-wood"></i><i class="x-fc x-lf x-wood"><u class="x-hook"></u></i><i class="x-fc x-ll x-wood"></i><i class="x-fc x-lr x-wood"></i><i class="x-fc x-lbk x-wood"></i><i class="x-fc x-lu"></i>
-              <i class="x-fc x-hd"></i><i class="x-fc x-hd x-hd2"></i>
+    <header class="tc-head">
+      <p class="tc-eye">My creative stack</p>
+      <h2 id="tcH" class="big">Everything I know, unwrapped.</h2>
+      <p class="sub tc-sub">The tools behind my ideas, from the first sketch to the final creation.</p>
+    </header>
+    <div class="tc" id="tc">
+      <div class="tc-out" id="tcOut"><div class="tc-outi">
+        <ul class="tc-grid" id="tcGrid" aria-label="Software I use"></ul>
+      </div></div>
+      <div class="tc-stage" id="tcStage">
+        <span class="tc-floor" aria-hidden="true"></span>
+        <span class="tc-light" aria-hidden="true"></span>
+        <div class="tc-case" id="tcCase" aria-hidden="true">
+          <div class="tc-scn"><div class="tc-rot">
+            <i class="tc-f tc-bf"><u class="tc-plate">VD</u><u class="tc-latch tc-l1"></u><u class="tc-latch tc-l2"></u></i>
+            <i class="tc-f tc-bk"></i><i class="tc-f tc-bl"></i><i class="tc-f tc-br"></i><i class="tc-f tc-bb"></i>
+            <i class="tc-f tc-rim"></i>
+            <i class="tc-f tc-ib"></i><i class="tc-f tc-ifr"></i><i class="tc-f tc-il"></i><i class="tc-f tc-ir"></i>
+            <i class="tc-f tc-fl"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></i>
+            <div class="tc-lid" id="tcLid">
+              <i class="tc-f tc-lt"></i><i class="tc-f tc-lf"><u class="tc-tab"></u></i><i class="tc-f tc-ll"></i><i class="tc-f tc-lr"></i><i class="tc-f tc-lbk"></i><i class="tc-f tc-lu"></i>
             </div>
           </div></div>
         </div>
-        <p class="x-tkhint" id="tkhint" aria-hidden="true">Click the box to open it</p>
       </div>
-      <div class="x-tray" id="tray"><p class="x-tkempty" aria-hidden="true">What’s inside?</p><ul class="x-tkout" id="tkout" aria-label="Tools I use"></ul></div>
+      <button type="button" class="tc-cta" id="tcCta" aria-expanded="false" aria-controls="tcOut"><span id="tcCtaT">Explore what&rsquo;s inside</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
     <i class="wp" data-wp="0.97" style="position:absolute;left:0;bottom:0"></i>
+  </div>
+  <div class="tc-tip" id="tcTip" role="tooltip" hidden>
+    <div class="tc-tip-h"><span class="tc-tip-i"><img id="tcTipI" alt="" width="40" height="40"></span><span><b id="tcTipN"></b><small id="tcTipC"></small></span></div>
+    <p id="tcTipD"></p>
   </div>
 </section>
 

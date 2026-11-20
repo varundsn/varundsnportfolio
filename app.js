@@ -69,19 +69,18 @@ const SITE={
  toolkit:[
   {g:'ux',title:'Product and UX'},{g:'vis',title:'Visual design'},{g:'mo',title:'Motion and editing'},{g:'ai',title:'AI-assisted research and exploration'}],
  tools:[
-  {g:'ux',n:'Figma / FigJam',i:'figma',t:'Interfaces, prototypes, flows and mapping.'},
-  {g:'ux',n:'Framer',i:'framer',t:'Interactive prototypes and websites.'},
-  {g:'vis',n:'Photoshop',i:'photoshop',t:'Image editing and mockups.'},
-  {g:'vis',n:'Illustrator',i:'illustrator',t:'Vector artwork and identity marks.'},
-  {g:'vis',n:'InDesign',i:'indesign',t:'Print and multi-page layout.'},
-  {g:'vis',n:'Canva',i:'canva',t:'Quick social and campaign creatives.'},
-  {g:'vis',n:'CorelDRAW',i:'coreldraw',t:'Vector illustration and print layouts.'},
-  {g:'mo',n:'CapCut',i:'capcut',t:'Short-form video and motion edits.'},
-  {g:'ai',n:'ChatGPT',i:'chatgpt',t:'Ideation and drafting.'},
-  {g:'ai',n:'Claude',i:'claude',t:'Structuring problems and ideas.'},
-  {g:'ai',n:'Gemini',i:'gemini',t:'Research support and visual exploration.'},
-  {g:'ai',n:'Google AI Studio',i:'aistudio',t:'Prompt and prototype experiments.'},
-  {g:'ai',n:'Antigravity',i:'antigravity',t:'AI-assisted building and prototyping.'}
+  {n:'Photoshop',f:'photoshop',full:1,c:'Visual design',d:'Creating social media creatives, image manipulation, photo editing and detailed visual compositions.'},
+  {n:'Figma',f:'figma',c:'UI & UX design',d:'Designing user interfaces, website layouts, wireframes and interactive prototypes.'},
+  {n:'Framer',f:'framer',c:'Web & prototyping',d:'Turning designs into interactive prototypes and live websites without leaving the canvas.'},
+  {n:'ChatGPT',f:'chatgpt',c:'Think',d:'Brainstorming, quick research and rewriting copy. My second brain for first drafts.'},
+  {n:'Claude',f:'claude',c:'AI assistance',d:'Exploring creative directions, refining ideas, writing content and assisting with design workflows.'},
+  {n:'Gemini',f:'gemini',c:'Research',d:'Supporting research and visual exploration when I am mapping a problem or hunting for new directions.'},
+  {n:'Google AI Studio',f:'aistudio',c:'AI experiments',d:'Testing prompts and prototyping small experiments with AI models.'},
+  {n:'Antigravity',f:'antigravity',c:'AI building',d:'AI-assisted building and prototyping, taking an idea to something working faster.'},
+  {n:'Illustrator',f:'illustrator',full:1,c:'Vector design',d:'Creating logos, vector illustrations, brand assets and scalable graphic elements.'},
+  {n:'Canva',f:'canva',c:'Quick creatives',d:'Putting together quick social and campaign creatives when speed matters.'},
+  {n:'CorelDRAW',f:'coreldraw',c:'Print & vector',d:'Vector illustration and print layouts, from artwork to the final page.'},
+  {n:'CapCut',f:'capcut',c:'Video & motion',d:'Cutting short-form video and motion edits for social content.'}
  ],
  /* Testimonials. All entries with a quote are shown; when name is empty the company is used as the byline.
     Add name and role to show the person instead.
@@ -635,37 +634,61 @@ $('#more').innerHTML=MORE.map(g=>`<div class="mg" style="--c:${g.c}"><h3 class="
   if(0)return `<a class="sb" href="${it.href}" aria-label="${esc(it.n)}: ${esc(it.lbl)}"><img src="img/socialbanner.webp" alt="" loading="lazy"><span class="sbt"><span class="sbk">SOCIAL MEDIA</span><span class="sbh">${esc(it.n)}</span><span class="sbd">${esc(it.d)}</span></span><span class="sbc">OPEN THE SOCIAL MEDIA PAGE <span aria-hidden="true">→</span></span></a>`;
   return it.href?`<a class="tile${it.img?'':' plain'}" href="${it.href}"${ext?' target="_blank" rel="noopener"':''} aria-label="${esc(it.n)}: ${esc(it.lbl)}">${inner}</a>`:`<div class="tile plain soon">${inner}</div>`}).join('')}</div></div>`).join('');
 
-/* ======================= TOOLBOX (3D artist box) ======================= */
+/* ======================= TOOLBOX (creative equipment case) ======================= */
 (function(){
-  const x=$('#tkx'),bx=$('#bx'),spin=$('#spin'),out=$('#tkout'),hint=$('#tkhint');if(!x)return;
-  out.innerHTML=TOOLS.map(t=>`<li class="x-tkt"><span class="ico" aria-hidden="true">${icon(t.i)}</span><b>${esc(t.n)}</b><span>${esc(t.t)}</span></li>`).join('');
-  const items=$$('.x-tkt',out),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  let ang=-24,state='idle',last=0,vis=false,run=false,from=0,t0=0,isOpen=false;
-  const to=-22,paint=()=>{spin.style.transform=`rotateX(-18deg) rotateY(${ang}deg)`};
-  const ease=p=>1-Math.pow(1-p,3);
-  function tick(t){
-    run=false;if(!vis||RM)return;const dt=Math.min(50,t-(last||t));last=t;
-    if(state==='idle'){ang+=dt*0.024}
-    else if(state==='settle'){const p=Math.min(1,(t-t0)/700);ang=from+(to-from)*ease(p);if(p>=1)state='open'}
-    paint();if(state!=='open')go()
-  }
-  function go(){if(!run&&vis&&!RM){run=true;requestAnimationFrame(tick)}}
-  new IntersectionObserver(e=>{vis=e[0].isIntersecting;last=0;if(vis)go()},{rootMargin:'100px'}).observe(bx);
-  paint();
+  const root=$('#tc'),grid=$('#tcGrid'),cta=$('#tcCta'),ctaT=$('#tcCtaT'),cs=$('#tcCase'),out=$('#tcOut'),stage=$('#tcStage');if(!root)return;
+  const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  grid.innerHTML=TOOLS.map((t,i)=>`<li class="tc-it"><button type="button" class="tc-b" data-i="${i}" aria-describedby="tcTip"><span class="tc-ic${t.full?' full':''}"><img src="img/tools/${t.f}.svg" alt="" width="64" height="64" loading="lazy" decoding="async"></span><span class="tc-n">${esc(t.n)}</span></button></li>`).join('');
+  const items=$$('.tc-it',grid),btns=$$('.tc-b',grid);
+  let isOpen=false,timer=0;
   function setOpen(v){
-    isOpen=v;bx.setAttribute('aria-expanded',v);hint.textContent=v?'Click the box to close it':'Click the box to open it';
+    if(v===isOpen)return;isOpen=v;clearTimeout(timer);hideTip(true);
+    cta.setAttribute('aria-expanded',v);ctaT.textContent=v?'Close toolbox':'Explore what’s inside';cta.classList.toggle('on',v);
     if(v){
-      const b=bx.getBoundingClientRect(),cx=b.left+b.width/2,cy=b.top+b.height*.5;
-      items.forEach((it,i)=>{const r=it.getBoundingClientRect();it.style.setProperty('--dx',(cx-(r.left+r.width/2))+'px');it.style.setProperty('--dy',(cy-(r.top+r.height/2))+'px');it.style.setProperty('--r',((i%2?1:-1)*(14+(i*9)%32))+'deg');it.style.setProperty('--od',(.5+i*.06)+'s');it.style.setProperty('--cd',((items.length-i)*.02)+'s')});
-      from=((ang%360)+540)%360-180;ang=from;t0=performance.now();state=RM?'open':'settle';if(RM){ang=to;paint()}go();
-      requestAnimationFrame(()=>x.classList.add('open'));
-    }else{
-      x.classList.remove('open');
-      setTimeout(()=>{if(!isOpen){state='idle';last=0;go()}},900);
-    }
+      /* distance from each item to the case mouth, so icons rise out of the case */
+      const innerH=grid.offsetHeight,mouth=innerH+stage.offsetHeight*.3;
+      items.forEach((it,i)=>{it.style.setProperty('--dy',Math.max(40,mouth-(it.offsetTop+it.offsetHeight/2))+'px');it.style.setProperty('--d',(RM?0:.62+i*.13)+'s');it.style.setProperty('--cd',(RM?0:(items.length-1-i)*.035)+'s')});
+      root.classList.add('open');out.classList.remove('done');
+      timer=setTimeout(()=>out.classList.add('done'),RM?0:.62*1000+items.length*130+800);
+      if(!RM)setTimeout(()=>{const r=cta.getBoundingClientRect();if(r.bottom>innerHeight-12)scrollBy({top:r.bottom-innerHeight+40,behavior:'smooth'})},700);
+    }else{root.classList.remove('open');out.classList.remove('done')}
   }
-  bx.addEventListener('click',()=>setOpen(!isOpen));
-  bx.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setOpen(!isOpen)}else if(e.key==='Escape'&&isOpen)setOpen(false)});
+  cta.addEventListener('click',()=>setOpen(!isOpen));
+  cs.addEventListener('click',()=>setOpen(!isOpen));
+  addEventListener('keydown',e=>{if(e.key==='Escape'){if(tipOn)hideTip();else if(isOpen)setOpen(false)}});
+
+  /* tooltip */
+  const tip=$('#tcTip');document.body.appendChild(tip);const tI=$('#tcTipI'),tN=$('#tcTipN'),tC=$('#tcTipC'),tD=$('#tcTipD');
+  let tipOn=null,hideT=0;
+  const fine=matchMedia('(hover:hover) and (pointer:fine)');
+  function place(b){
+    const r=b.querySelector('.tc-ic').getBoundingClientRect(),w=tip.offsetWidth,h=tip.offsetHeight,m=12;
+    let x=r.left+r.width/2-w/2;x=Math.max(m,Math.min(innerWidth-w-m,x));
+    let y=r.top-h-14,below=false;if(y<m){y=r.bottom+14;below=true}
+    tip.style.left=x+'px';tip.style.top=y+'px';tip.dataset.pos=below?'b':'t';
+    tip.style.setProperty('--ax',Math.max(22,Math.min(w-22,r.left+r.width/2-x))+'px');
+  }
+  function showTip(b){
+    const t=TOOLS[+b.dataset.i];clearTimeout(hideT);
+    tI.src='img/tools/'+t.f+'.svg';tN.textContent=t.n;tC.textContent=t.c;tI.parentNode.classList.toggle('full',!!t.full);tD.textContent=t.d;
+    tip.hidden=false;tip.style.position='fixed';tipOn=b;place(b);
+    requestAnimationFrame(()=>tip.classList.add('on'));
+    btns.forEach(x=>x.classList.toggle('act',x===b));
+  }
+  function hideTip(now){
+    tipOn=null;btns.forEach(x=>x.classList.remove('act'));tip.classList.remove('on');
+    clearTimeout(hideT);hideT=setTimeout(()=>{if(!tipOn)tip.hidden=true},now?0:220);
+  }
+  btns.forEach(b=>{
+    b.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')showTip(b)});
+    b.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')hideTip()});
+    b.addEventListener('focus',()=>showTip(b));
+    b.addEventListener('blur',()=>hideTip());
+    b.addEventListener('click',e=>{e.stopPropagation();if(tipOn===b&&!fine.matches)hideTip();else showTip(b)});
+  });
+  document.addEventListener('click',e=>{if(tipOn&&!e.target.closest('.tc-b'))hideTip()});
+  addEventListener('scroll',()=>{if(tipOn)place(tipOn)},{passive:true});
+  addEventListener('resize',()=>{if(tipOn)place(tipOn)});
 })();
 
 /* ======================= PROCESS ======================= */
