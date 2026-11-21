@@ -69,19 +69,19 @@ const SITE={
  toolkit:[
   {g:'ux',title:'Product and UX'},{g:'vis',title:'Visual design'},{g:'mo',title:'Motion and editing'},{g:'ai',title:'AI-assisted research and exploration'}],
  tools:[
-  {n:'Photoshop',f:'photoshop',full:1,c:'Visual design',d:'My go-to for social creatives, photo edits and mockups when an image needs real polish.'},
-  {n:'Illustrator',f:'illustrator',full:1,c:'Vector design',d:'Where I draw logos, vector illustrations and brand assets that stay sharp at any size.'},
-  {n:'Figma',f:'figma',c:'UI & UX design',d:'Where I design interfaces, map user flows, wireframe and prototype before anything gets built.'},
-  {n:'Framer',f:'framer',c:'Prototypes & web',d:'I use it to turn my designs into interactive prototypes and live websites I can share.'},
-  {n:'Canva',f:'canva',c:'Quick creatives',d:'When speed matters, I put together social and campaign creatives here.'},
-  {n:'CorelDRAW',f:'coreldraw',c:'Print & vector',d:'My pick for vector illustration and print layouts, from the artwork to the final page.'},
-  {n:'CapCut',f:'capcut',c:'Video & motion',d:'Where I cut short-form videos and motion edits for social content.'},
-  {n:'ChatGPT',f:'chatgpt',c:'Think',d:'My second brain for first drafts: brainstorming, quick research and rewriting my own copy.'},
-  {n:'Claude',f:'claude',c:'AI assistance',d:'I lean on it to untangle messy problems, shape ideas and refine content and workflows.'},
-  {n:'Gemini',f:'gemini',c:'Research',d:'I reach for it when I need research support and a quick way to explore visual directions.'},
-  {n:'Google AI Studio',f:'aistudio',c:'AI experiments',d:'My sandbox for testing prompts and trying small AI prototypes before I commit to an idea.'},
-  {n:'Antigravity',f:'antigravity',c:'AI building',d:'I use it to build and prototype with AI, taking an idea to something working faster.'},
-  {n:'Vercel',f:'vercel',c:'Launch & hosting',d:'Where this portfolio lives. I deploy my sites here and share them with a single link.'}
+  {n:'Photoshop',bg:'#001E36',f:'photoshop',full:1,c:'Visual design',d:'My go-to for social creatives, photo edits and mockups when an image needs real polish.'},
+  {n:'Illustrator',bg:'#330000',f:'illustrator',full:1,c:'Vector design',d:'Where I draw logos, vector illustrations and brand assets that stay sharp at any size.'},
+  {n:'Figma',bg:'#1E1E1E',f:'figma',c:'UI & UX design',d:'Where I design interfaces, map user flows, wireframe and prototype before anything gets built.'},
+  {n:'Framer',bg:'#000',f:'framer',c:'Prototypes & web',d:'I use it to turn my designs into interactive prototypes and live websites I can share.'},
+  {n:'Canva',bg:'linear-gradient(135deg,#00C4CC,#7D2AE8)',f:'canva',c:'Quick creatives',d:'When speed matters, I put together social and campaign creatives here.'},
+  {n:'CorelDRAW',bg:'#00A64F',f:'coreldraw',c:'Print & vector',d:'My pick for vector illustration and print layouts, from the artwork to the final page.'},
+  {n:'CapCut',bg:'#000',f:'capcut',c:'Video & motion',d:'Where I cut short-form videos and motion edits for social content.'},
+  {n:'ChatGPT',bg:'#000',f:'chatgpt',c:'Think',d:'My second brain for first drafts: brainstorming, quick research and rewriting my own copy.'},
+  {n:'Claude',bg:'#D97757',f:'claude',c:'AI assistance',d:'I lean on it to untangle messy problems, shape ideas and refine content and workflows.'},
+  {n:'Gemini',bg:'#fff',f:'gemini',c:'Research',d:'I reach for it when I need research support and a quick way to explore visual directions.'},
+  {n:'Google AI Studio',bg:'#fff',f:'aistudio',c:'AI experiments',d:'My sandbox for testing prompts and trying small AI prototypes before I commit to an idea.'},
+  {n:'Antigravity',bg:'#fff',f:'antigravity',c:'AI building',d:'I use it to build and prototype with AI, taking an idea to something working faster.'},
+  {n:'Vercel',bg:'#000',f:'vercel',c:'Launch & hosting',d:'Where this portfolio lives. I deploy my sites here and share them with a single link.'}
  ],
  /* Testimonials. All entries with a quote are shown; when name is empty the company is used as the byline.
     Add name and role to show the person instead.
@@ -639,7 +639,7 @@ $('#more').innerHTML=MORE.map(g=>`<div class="mg" style="--c:${g.c}"><h3 class="
 (function(){
   const root=$('#tc'),grid=$('#tcGrid'),cta=$('#tcCta'),ctaT=$('#tcCtaT'),cs=$('#tcCase'),out=$('#tcOut'),stage=$('#tcStage');if(!root)return;
   const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  grid.innerHTML=TOOLS.map((t,i)=>`<li class="tc-it"><button type="button" class="tc-b" data-i="${i}" aria-describedby="tcTip"><span class="tc-ic full"><img src="img/tools/${t.f}.svg" alt="" width="64" height="64" loading="lazy" decoding="async"></span><span class="tc-n">${esc(t.n)}</span></button></li>`).join('');
+  grid.innerHTML=TOOLS.map((t,i)=>`<li class="tc-it"><button type="button" class="tc-b" data-i="${i}" aria-describedby="tcTip"><span class="tc-ic full" style="--bg:${t.bg}"><img src="img/tools/${t.f}.svg" alt="" width="64" height="64" decoding="async"></span><span class="tc-n">${esc(t.n)}</span></button></li>`).join('');
   const items=$$('.tc-it',grid),btns=$$('.tc-b',grid);
   let isOpen=false,timer=0;
   function setOpen(v){
@@ -671,7 +671,7 @@ $('#more').innerHTML=MORE.map(g=>`<div class="mg" style="--c:${g.c}"><h3 class="
   }
   function showTip(b){
     const t=TOOLS[+b.dataset.i];clearTimeout(hideT);
-    tI.src='img/tools/'+t.f+'.svg';tN.textContent=t.n;tC.textContent=t.c;tI.parentNode.classList.add('full');tD.textContent=t.d;
+    tI.src='img/tools/'+t.f+'.svg';tN.textContent=t.n;tC.textContent=t.c;tI.parentNode.classList.add('full');tI.parentNode.style.setProperty('--bg',t.bg);tD.textContent=t.d;
     tip.hidden=false;tip.style.position='fixed';tipOn=b;place(b);
     requestAnimationFrame(()=>tip.classList.add('on'));
     btns.forEach(x=>x.classList.toggle('act',x===b));
