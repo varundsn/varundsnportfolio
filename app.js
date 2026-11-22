@@ -9,7 +9,7 @@ const SITE={
  resume:{
   pdf:'resume.pdf',          /* upload your PDF to the site root with this name (see README.md) */
   pdfReady:false,           /* set to true once resume.pdf is uploaded; until then the Google Drive link is used */
-  drive:'https://drive.google.com/file/d/1QHYvGgl6ESm_LfYOulai7tE8KNPh-gXm/view?usp=sharing'},
+  drive:'https://drive.google.com/file/d/11WSQ_P1OwU787ir3UOTkGGj14YtUUI-9/view?usp=sharing'},
  hero:{
   eyebrow:'Portfolio',
   para:'Product Designer with a Computer Science background. I work through research, flows and interfaces, with brand and visual craft behind every detail.',
