@@ -1991,3 +1991,7 @@ h2.big,.contact h2,.jhead h2{font-weight:800!important;text-transform:none!impor
 .jhead h2{font-size:clamp(1.05rem,1.55vw,1.45rem)!important;line-height:1.04!important;letter-spacing:-.035em!important;max-width:none}
 .jhead .chap{margin-bottom:6px}
 @media(max-width:720px){.jhead{top:10px;left:10px;max-width:58vw;padding:8px 11px 10px}.jhead h2{font-size:1rem!important}}
+/* skills ribbon: slight tilt, sits lower so it clears the CTA */
+.mq{bottom:52px!important;left:-5%!important;right:-5%!important;transform:rotate(-1.6deg)!important;transform-origin:center;box-shadow:0 10px 24px rgba(0,0,0,.28)!important}
+@media(max-width:1000px){.mq{bottom:64px!important;transform:rotate(-1deg)!important}}
+@media(prefers-reduced-motion:reduce){.mq{transform:rotate(-1.6deg)!important}}
