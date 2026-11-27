@@ -2001,3 +2001,14 @@ h2.big,.contact h2,.jhead h2{font-weight:800!important;text-transform:none!impor
 @media(max-width:1000px){.mq{bottom:64px!important;transform:rotate(-1.8deg)!important}}
 @media(min-width:1001px) and (max-height:760px){#heroPara{display:none!important}}
 @media(prefers-reduced-motion:reduce){.mq{transform:rotate(-2.4deg)!important}}
+/* skills band: straight, full-bleed, between the case studies and "More design work" */
+.sband{position:relative;margin:clamp(48px,7vw,96px) calc(50% - 50vw) 0;width:100vw;overflow:hidden;background:#14110F;color:#fff;padding:16px 0;transform:none}
+.sbt{display:flex;flex-direction:row!important;width:max-content;animation:mqs 38s linear infinite}
+.sbt>div{display:flex;align-items:center;flex:none}
+.sbt span{font-family:'Inter Tight','Google Sans',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(1.05rem,1.8vw,1.7rem);letter-spacing:-.01em;padding:0 clamp(18px,2.4vw,34px);white-space:nowrap}
+.sbt i{font-style:normal;color:#F6DB69;font-size:1rem}
+.sband:hover .sbt{animation-play-state:paused}
+.work{overflow-x:clip}
+:root[data-theme="dark"] .sband{background:var(--neon,#CEFE1C);color:#08090A}
+:root[data-theme="dark"] .sband .sbt span,:root[data-theme="dark"] .sband .sbt i{color:#08090A}
+@media(prefers-reduced-motion:reduce){.sbt{animation:none;transform:none;flex-wrap:wrap;width:100%;justify-content:center}.sbt>div:nth-child(2){display:none}}
