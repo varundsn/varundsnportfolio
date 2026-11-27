@@ -1995,3 +1995,9 @@ h2.big,.contact h2,.jhead h2{font-weight:800!important;text-transform:none!impor
 .mq{bottom:52px!important;left:-5%!important;right:-5%!important;transform:rotate(-1.6deg)!important;transform-origin:center;box-shadow:0 10px 24px rgba(0,0,0,.28)!important}
 @media(max-width:1000px){.mq{bottom:64px!important;transform:rotate(-1deg)!important}}
 @media(prefers-reduced-motion:reduce){.mq{transform:rotate(-1.6deg)!important}}
+/* skills ribbon: tilt a little more and sit lower so it never touches the hero CTA */
+.mq{transform:rotate(-2.4deg)!important}
+@media(min-width:1001px){.mq{bottom:66px!important}}
+@media(max-width:1000px){.mq{bottom:64px!important;transform:rotate(-1.8deg)!important}}
+@media(min-width:1001px) and (max-height:760px){#heroPara{display:none!important}}
+@media(prefers-reduced-motion:reduce){.mq{transform:rotate(-2.4deg)!important}}
